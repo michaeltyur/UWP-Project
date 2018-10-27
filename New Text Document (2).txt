@@ -1,0 +1,19 @@
+https://content.guardianapis.com/search?
+api-key=6e094816-d879-46d7-ae1b-a8c0ad2aa647
+&q=show-fields=thumbnail,trailText
+&show-elements=image
+&show-blocks=body:latest:10
+
+
+http://content.guardianapis.com/search?api-key=6e094816-d879-46d7-ae1b-a8c0ad2aa647
+&show-fields=thumbnail,trailText
+&show-elements=image
+&show-blocks=body:latest:10
+
+
+                        <TextBlock Text="{Binding WebTitle}"/>
+                        <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"
+                           Width="100"
+                           Height="125"></Image>
+                        <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText}"/>
+                        <TextBlock Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>

@@ -5,3 +5,4 @@
     xmlns:local="using:GardianNewsApp.UWP"
     RequestedTheme="Light">
 </local:UWPApplication>
+    

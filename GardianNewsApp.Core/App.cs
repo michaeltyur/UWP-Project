@@ -14,7 +14,8 @@ namespace GardianNewsApp.Core
             CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()
-                .RegisterAsLazySingleton();
+                .RegisterAsLazySingleton();                
+            
                 RegisterAppStart<HomeViewModel>();
         }
     }

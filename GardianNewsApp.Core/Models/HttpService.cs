@@ -10,11 +10,12 @@ namespace GardianNewsApp.Core.Models
 
     public class HttpService
     {
-        public async Task<T> GetAsync<T>(string baseUrl, Dictionary<string, string> parameters)
+  
+        public async Task<T> GetAsync<T>(string baseUrl, string endPoint, Dictionary<string, string> parameters)
         {
             using (var client = new HttpClient())
             {
-                var finalUrl = baseUrl + GetParametersString(parameters);
+                var finalUrl = baseUrl + endPoint + GetParametersString(parameters);
 
                 var response = await client.GetAsync(finalUrl);
                 response.EnsureSuccessStatusCode();
@@ -35,7 +36,7 @@ namespace GardianNewsApp.Core.Models
                 parametersString.Append($"{parameter.Key}={parameter.Value}&");
             }
 
-            parametersString.Remove(parametersString.Length - 1, 1);
+            parametersString.Remove(parametersString.Length - 1, 1);//remove first symbol '$'
 
             return parametersString.ToString();
         }

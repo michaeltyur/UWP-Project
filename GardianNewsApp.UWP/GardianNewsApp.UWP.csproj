@@ -96,6 +96,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateToStringConverter.cs" />
+    <Compile Include="Views\DetailsView.xaml.cs">
+      <DependentUpon>DetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\DetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

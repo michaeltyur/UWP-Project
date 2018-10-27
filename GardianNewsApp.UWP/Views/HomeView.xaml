@@ -6,23 +6,68 @@
     xmlns:local="using:GardianNewsApp.UWP.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-    <Page.Resources>
+    xmlns:local1="using:GardianNewsApp.Core.Models"
+    mc:Ignorable="d"
+    Background="LightGray">
+    <views:MvxWindowsPage.Resources>
         <local:DateToStringConverter x:Key="DateToStringConverter" />
-        <DataTemplate x:Key="item">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding WebTitle}"/>
-                <TextBlock Text="{Binding LastName}"/>
-                <TextBlock Text="{Binding LastName}"/>
-                <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"
-                       Width="100"
-                       Height="125"></Image>
-                <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText}"/>
-                <TextBlock Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
-            </StackPanel>
+        <DataTemplate x:Key="NewsItem">
+            <Border BorderThickness="3" 
+                            Margin="5"
+                            Padding="5"
+                            BorderBrush="DarkGray">
+                <StackPanel Orientation="Vertical" 
+                                    MaxWidth="400" 
+                                    MaxHeight="500">
+                    <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
+                    <TextBlock Text="{Binding WebTitle}"
+                                       TextWrapping="WrapWholeWords"
+                                       FontSize="18"
+                                       FontStyle="Italic"
+                                       FontWeight="Medium"/>
+                    <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText}"
+                                       TextWrapping="WrapWholeWords"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Publish Date:" 
+                                   FontStyle="Italic"
+                                   Margin="0 0 5 0"/>
+                        <TextBlock Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </DataTemplate>
-    </Page.Resources>
-    <GridView Background="Gray">
-        <TextBlock Text="KJH"></TextBlock>
-    </GridView>
+    </views:MvxWindowsPage.Resources>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical"
+                Padding="0 40 0 0"
+                HorizontalAlignment="Center">
+            <Border BorderThickness="10"
+                BorderBrush="DarkSlateGray"
+                Background="DarkSlateGray">
+                <TextBlock Text="Wellcome to gardian news app" 
+                       TextAlignment="Center"                      
+                       FontSize="20"
+                       Foreground="White"></TextBlock>
+            </Border>
+            <ProgressRing x:Name="ProgressRing" 
+                      IsActive="{Binding ProgressRingIsActive}" 
+                      Visibility="{Binding ProgressRingVisibility}"
+                      Height="150"
+                      Width="150" 
+                      Foreground="Blue"
+                      HorizontalContentAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Padding="0 20 20 0"/>
+
+            <GridView x:Name ="NewsList"
+                    Background="LightGray" 
+                    IsItemClickEnabled="True"
+                    ItemsSource="{Binding NewsCollection}"
+                    VerticalContentAlignment="Center"
+                    ItemTemplate="{StaticResource NewsItem}">
+
+            </GridView>
+        </StackPanel>
+    </ScrollViewer>
+    
 </views:MvxWindowsPage>

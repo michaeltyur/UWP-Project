@@ -15,20 +15,26 @@ using MvvmCross.Navigation;
 
 namespace GardianNewsApp.Core.Models
 {
-    public class GardianAppContext<T>
+    public class GardianAppContext
     {
-       public MvxCommand GoToDetailsCommand { get; set; }
-       public IMvxNavigationService MvxNavigation { get; set; }
+       
+        public GoToNewsDetailsCommand GoToDetailsCommand { get; set; }
+
+        public IMvxNavigationService MvxNavigation
+        {
+            get;
+            set;
+        }
 
         public StoryHeader SelectedItem { get; set; }
 
         //Singelton instance
-        private static GardianAppContext<T> instance;
-        public static GardianAppContext<T> Instance
+        private static GardianAppContext instance;
+        public static GardianAppContext Instance
         {
             get
             {
-                return instance ?? (instance = new GardianAppContext<T>());
+               return instance ?? (instance = new GardianAppContext());   
             }
         }
 
@@ -43,17 +49,20 @@ namespace GardianNewsApp.Core.Models
             _httpService = new HttpService();
             _parametrs = new Dictionary<string, string>();
             NewsCollection = new ObservableCollection<StoryHeader>();
-           
+            GoToDetailsCommand = new GoToNewsDetailsCommand();
             FillNewsCollection();
         }
-
+        public void GoToNewsDetails(string url)
+        {
+            MvxNavigation.Navigate<DetailsViewModel, string>(url);
+        }
         public async Task<ObservableCollection<StoryHeader>> GetAllNewsAsync()
         {
             
             NewsCollection.Clear();
             SetAllNewsParametrsDictionary();
 
-            var result= await _httpService.GetAsync<T>(Constants.BASE_API_URL, Constants.END_POINT, _parametrs) as SearchResult;
+            var result= await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, Constants.END_POINT, _parametrs);
            
             var collection = result.SearchResponse.StoryHeaders;
             if (collection != null)

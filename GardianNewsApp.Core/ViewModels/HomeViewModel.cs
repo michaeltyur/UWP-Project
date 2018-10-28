@@ -10,7 +10,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
+
 
 namespace GardianNewsApp.Core.ViewModels
 {
@@ -33,7 +33,7 @@ namespace GardianNewsApp.Core.ViewModels
             set { newsCollection = value;OnPropertyChanged(); }
         }
 
-        private GardianAppContext<SearchResult> appContext;
+        private GardianAppContext appContext;
 
         
         //public IMvxCommand GoToDetailsCommand { get; set; }
@@ -54,8 +54,9 @@ namespace GardianNewsApp.Core.ViewModels
 
         public HomeViewModel(IMvxNavigationService navigationService)
         {
-            appContext = GardianAppContext<SearchResult>.Instance;
+            appContext = GardianAppContext.Instance;
             appContext.MvxNavigation = navigationService;
+            GoToNewsDetailsCommand = appContext.GoToDetailsCommand;
 
             NewsCollection = new ObservableCollection<StoryHeader>();
             SetNewsCollectionAsync();

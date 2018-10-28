@@ -1,4 +1,5 @@
-﻿using MvvmCross.Platforms.Uap.Views;
+﻿using GardianNewsApp.Core.Models;
+using MvvmCross.Platforms.Uap.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,9 +30,11 @@ namespace GardianNewsApp.UWP.Views
             //DataContext = this;
         }
 
-        //private void NewsList_ItemClick(object sender, ItemClickEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(DetailsView), ((GridView)sender).DataContext);
-        //}
+        private void NewsList_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var url = ((StoryHeader)((Image)e.OriginalSource).DataContext).WebUrl;
+            GardianAppContext.Instance.GoToNewsDetails(url);
+        }
+
     }
 }

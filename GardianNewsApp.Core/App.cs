@@ -6,6 +6,7 @@ using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace GardianNewsApp.Core
@@ -14,6 +15,7 @@ namespace GardianNewsApp.Core
     {
         public override void Initialize()
         {
+
             CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()

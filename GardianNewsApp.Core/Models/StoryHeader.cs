@@ -8,7 +8,7 @@ namespace GardianNewsApp.Core.Models
 {
     public class StoryHeader
     {
-        public GoToNewsDetailsCommand GoToDetailsCommand { get; set; }
+        //public GoToNewsDetailsCommand GoToDetailsCommand { get; set; }
 
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
@@ -36,11 +36,11 @@ namespace GardianNewsApp.Core.Models
         [JsonProperty(PropertyName = "blocks")]
         public Blocks Blocks { get; set; }
 
-        public StoryHeader()
-        {
-            var instance = GardianAppContext<SearchResult>.Instance;
-            GoToDetailsCommand = new  GoToNewsDetailsCommand(GardianAppContext<SearchResult>.Instance.MvxNavigation);
-        }
+        //public StoryHeader()
+        //{
+        //    var instance = GardianAppContext<SearchResult>.Instance;
+        //    GoToDetailsCommand = new  GoToNewsDetailsCommand(GardianAppContext<SearchResult>.Instance.MvxNavigation);
+        //}
 
 
 

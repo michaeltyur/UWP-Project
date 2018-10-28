@@ -1,4 +1,5 @@
-﻿using GardianNewsApp.Core.ViewModels;
+﻿using GardianNewsApp.Core.Models;
+using GardianNewsApp.Core.ViewModels;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using System;
@@ -11,11 +12,8 @@ namespace GardianNewsApp.Core.Commands
     public class GoToNewsDetailsCommand : IMvxCommand
     {
 
-        private IMvxNavigationService _navigationService;
-
-        public GoToNewsDetailsCommand(IMvxNavigationService mvxNavigation)
+        public GoToNewsDetailsCommand()
         {
-            _navigationService = mvxNavigation;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -37,7 +35,7 @@ namespace GardianNewsApp.Core.Commands
         public void Execute(object parameter)
         {
             string url = (string)parameter;
-             _navigationService.Navigate<DetailsViewModel, string>(url);
+            GardianAppContext.Instance.GoToNewsDetails(url);
         }
 
         public void RaiseCanExecuteChanged()

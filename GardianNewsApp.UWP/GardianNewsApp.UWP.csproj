@@ -145,6 +145,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.7</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.0.0-preview.gb86cb1c4cb</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross">
       <Version>6.2.1</Version>
     </PackageReference>

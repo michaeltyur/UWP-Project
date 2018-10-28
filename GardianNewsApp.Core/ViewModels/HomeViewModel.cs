@@ -45,8 +45,8 @@ namespace GardianNewsApp.Core.ViewModels
             get { return progressRingIsActive; }
             set { progressRingIsActive = value;OnPropertyChanged(); }
         }
-        private Visibility progressRingVisibility;
-        public Visibility ProgressRingVisibility
+        private bool progressRingVisibility;
+        public bool ProgressRingVisibility
         {
             get { return progressRingVisibility; }
             set { progressRingVisibility = value; OnPropertyChanged(); }
@@ -60,8 +60,7 @@ namespace GardianNewsApp.Core.ViewModels
             NewsCollection = new ObservableCollection<StoryHeader>();
             SetNewsCollectionAsync();
             ProgressRingIsActive = true;
-            ProgressRingVisibility = Visibility.Visible;
-
+            ProgressRingVisibility = true; ;
         }
 
         public override void Prepare()
@@ -78,7 +77,7 @@ namespace GardianNewsApp.Core.ViewModels
         {
                NewsCollection = await appContext.GetAllNewsAsync();
                ProgressRingIsActive = false;
-               ProgressRingVisibility = Visibility.Collapsed;       
+            ProgressRingVisibility = false; ;       
         }
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -28,5 +28,10 @@ namespace GardianNewsApp.UWP.Views
             this.InitializeComponent();
             //DataContext = this;
         }
+
+        //private void NewsList_ItemClick(object sender, ItemClickEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(DetailsView), ((GridView)sender).DataContext);
+        //}
     }
 }

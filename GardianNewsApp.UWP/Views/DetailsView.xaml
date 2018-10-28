@@ -7,9 +7,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="LightGray"
+    >
 
-    <Grid>
-
-    </Grid>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical"
+                Padding="0 40 0 0"
+                HorizontalAlignment="Center">
+            <Border BorderThickness="10"
+                BorderBrush="DarkSlateGray"
+                Background="DarkSlateGray">
+                <TextBlock Text="Wellcome to gardian news app" 
+                       TextAlignment="Center"                      
+                       FontSize="20"
+                       Foreground="White"></TextBlock>
+            </Border>
+            <WebView MinWidth="800"
+                     MinHeight="800"
+                     Source="{Binding Html}"
+                     Margin="0 20 0 0"
+                     >
+            </WebView>
+        </StackPanel>
+    </ScrollViewer>
 </views:MvxWindowsPage>

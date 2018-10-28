@@ -1,10 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using GardianNewsApp.Core.Commands;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using Newtonsoft.Json;
 using System;
 
 namespace GardianNewsApp.Core.Models
 {
     public class StoryHeader
     {
+        public GoToNewsDetailsCommand GoToDetailsCommand { get; set; }
+
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         [JsonProperty(PropertyName = "type")]
@@ -21,10 +26,23 @@ namespace GardianNewsApp.Core.Models
         public string WebUrl { get; set; }
         [JsonProperty(PropertyName = "apiUrl")]
         public string ApiUrl { get; set; }
+
         [JsonProperty(PropertyName = "fields")]
         public StoryHeaderAdditionalFields StoryHeaderAdditionalFields { get; set; }
+
         [JsonProperty(PropertyName = "isHosted")]
         public bool IsHosted { get; set; }
+
+        [JsonProperty(PropertyName = "blocks")]
+        public Blocks Blocks { get; set; }
+
+        public StoryHeader()
+        {
+            var instance = GardianAppContext<SearchResult>.Instance;
+            GoToDetailsCommand = new  GoToNewsDetailsCommand(GardianAppContext<SearchResult>.Instance.MvxNavigation);
+        }
+
+
 
     }
 }

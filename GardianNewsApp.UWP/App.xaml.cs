@@ -32,5 +32,6 @@ namespace GardianNewsApp.UWP
 
     public abstract class UWPApplication : MvxApplication<MvxWindowsSetup<Core.App>,Core.App>
     {
+        
     }
 }

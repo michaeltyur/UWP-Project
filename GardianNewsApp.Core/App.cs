@@ -1,5 +1,8 @@
-﻿using GardianNewsApp.Core.ViewModels;
+﻿using GardianNewsApp.Core.Models;
+using GardianNewsApp.Core.ViewModels;
+using MvvmCross;
 using MvvmCross.IoC;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,9 +17,9 @@ namespace GardianNewsApp.Core
             CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()
-                .RegisterAsLazySingleton();                
-            
-                RegisterAppStart<HomeViewModel>();
+                .RegisterAsLazySingleton();
+
+            RegisterAppStart<HomeViewModel>();
         }
     }
 }

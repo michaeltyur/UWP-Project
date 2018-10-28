@@ -15,7 +15,7 @@
         public const string SHOW_ELEMENTS = "image";
 
         public const string SHOW_BLOCKS_PARAM = "show-blocks";
-        public const string SHOW_BLOCKS = "body:latest:10";
+        public const string SHOW_BLOCKS = "body:latest:20";
 
         public const string PAGE_SIZE_PARAM = "page-size";
         public const string PAGE_PARAM = "page";

@@ -30,21 +30,9 @@ namespace GardianNewsApp.UWP
             this.InitializeComponent();
         }
 
-        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (args.IsSettingsInvoked)
-            {
-                ContentFrame.Navigate(typeof(HomeView));
-            }
-            if (args.InvokedItem == "Начальная страница")
-            {
-                ContentFrame.Navigate(typeof(HomeView));
-            }
-        }
-        private void NewsList_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var url = ((StoryHeader)((Image)e.OriginalSource).DataContext).WebUrl;
-            GardianAppContext.Instance.GoToNewsDetails(url);
+            splitView.IsPaneOpen = !splitView.IsPaneOpen;
         }
     }
 }

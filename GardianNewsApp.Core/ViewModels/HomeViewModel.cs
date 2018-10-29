@@ -1,5 +1,6 @@
 ﻿using GardianNewsApp.Core.Commands;
 using GardianNewsApp.Core.Models;
+using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Collections.ObjectModel;
@@ -13,12 +14,21 @@ namespace GardianNewsApp.Core.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public string PageTitle { get; set; }
-        public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
 
+        public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
+        public IMvxCommand NavMenuTriggerCommand { get; set; }
+
+        
         public StoryHeader SelectedItem
         {
             get { return appContext.SelectedItem; }
             set { appContext.SelectedItem = value; OnPropertyChanged (); }
+        }
+        private  bool isPaneOpen;
+        public  bool IsPaneOpen
+        {
+            get { return isPaneOpen; }
+            set { isPaneOpen = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<StoryHeader> newsCollection;
@@ -47,15 +57,22 @@ namespace GardianNewsApp.Core.ViewModels
         public HomeViewModel(IMvxNavigationService navigationService)
         {
             appContext = GardianAppContext.Instance;
-            appContext.MvxNavigation = navigationService;
-            GoToNewsDetailsCommand = appContext.GoToDetailsCommand;
+            //Command
+            GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
+            NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
+
+         
+            PageTitle = "All News";
 
             NewsCollection = new ObservableCollection<StoryHeader>();
             SetNewsCollectionAsync();
             ProgressRingIsActive = true;
-            ProgressRingVisibility = true; ;
+            ProgressRingVisibility = true;
         }
-
+        private void NavPanelTrigger()
+        {
+            IsPaneOpen = !IsPaneOpen;
+        }
         private async void SetNewsCollectionAsync()
         {
                NewsCollection = await appContext.GetAllNewsAsync();

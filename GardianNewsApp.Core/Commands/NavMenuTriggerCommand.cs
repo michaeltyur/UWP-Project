@@ -1,23 +1,19 @@
 ﻿using GardianNewsApp.Core.Models;
-using GardianNewsApp.Core.ViewModels;
 using MvvmCross.Commands;
-using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Input;
 
 namespace GardianNewsApp.Core.Commands
 {
-    public class GoToNewsDetailsCommand : IMvxCommand
+    public class NavMenuTriggerCommand : IMvxCommand
     {
-        IMvxNavigationService _navigationService;
-        public GoToNewsDetailsCommand(IMvxNavigationService navigationService)
-        {
-                
-        }
         public event EventHandler CanExecuteChanged;
-
+        private bool _isPaneOpen;
+        public NavMenuTriggerCommand(ref bool isPaneOpen)
+        {
+            _isPaneOpen = isPaneOpen;
+        }
         public bool CanExecute()
         {
             throw new NotImplementedException();
@@ -30,14 +26,12 @@ namespace GardianNewsApp.Core.Commands
 
         public void Execute()
         {
-            throw new NotImplementedException();
+            _isPaneOpen = !_isPaneOpen;
         }
 
         public void Execute(object parameter)
         {
-            string url = (string)parameter;
-            //GardianAppContext.Instance.GoToNewsDetails(url);
-            _navigationService.Navigate<DetailsViewModel, string>(url);
+            _isPaneOpen = !_isPaneOpen;
         }
 
         public void RaiseCanExecuteChanged()

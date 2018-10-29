@@ -35,5 +35,10 @@ namespace GardianNewsApp.UWP.Controls
                 ContentFrame.Navigate(typeof(HomeView));
             }
         }
+
+        private void NavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -20,7 +20,10 @@
                 </NavigationViewItem>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItemHeader Content="Sections"/>
-                <NavigationViewItem Icon="Filter" Content="Football" Tag="football"/>
+                <NavigationViewItem Icon="Filter" 
+                                    Content="Football" 
+                                    Tag="football"
+                                    Tapped="NavigationViewItem_Tapped"/>
                 <NavigationViewItem Icon="Filter" Content="Animals" Tag="animals"/>
                 <NavigationViewItem Icon="Filter" Content="Art and design" Tag="art and design"/>
                 <NavigationViewItem Icon="Filter" Content="Books" Tag="books"/>

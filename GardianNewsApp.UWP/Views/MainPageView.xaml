@@ -9,57 +9,90 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    
     <Grid>
-        <NavigationView x:Name="NavView" 
-                        IsSettingsVisible="True"
-                        ItemInvoked="NavView_ItemInvoked"
-                        AlwaysShowHeader="False"
-                        >
+        <SplitView x:Name="splitView"
+                   DisplayMode="CompactOverlay" 
+                   CompactPaneLength="48"
+                   OpenPaneLength="200"
+                   PaneBackground="LightBlue">
+            <SplitView.Pane>
+                
+                <StackPanel Orientation="Vertical" >
+                    <StackPanel Orientation="Vertical" >
+                        <Button Background="Transparent" 
+                                Width="200" 
+                                HorizontalContentAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                                <SymbolIcon Symbol="Home"
+                                            Tag="All News" />
+                                <TextBlock Margin="40 0 0 0">All News</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <Button Background="Transparent"
+                            Width="200" 
+                            HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter"
+                                        Tag="football" />
+                            <TextBlock Margin="40 0 0 0">Football</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Background="Transparent"
+                            Width="200" 
+                            HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter"
+                                        Tag="animals" />
+                            <TextBlock Margin="40 0 0 0">Animals</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Background="Transparent"
+                            Width="200" 
+                            HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter"
+                                        Tag="art and design" />
+                            <TextBlock Margin="40 0 0 0">Art and design</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Background="Transparent"
+                            Width="200" 
+                            HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter"
+                                        Tag="books" />
+                            <TextBlock Margin="40 0 0 0">Books</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Background="Transparent"
+                            Width="200" 
+                            HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter"
+                                        Tag="australia news" />
+                            <TextBlock Margin="40 0 0 0">Australia news</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Background="Transparent"
+                            Width="200" 
+                            HorizontalContentAlignment="Left">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Filter"
+                                        Tag="culture"/>
+                            <TextBlock Margin="40 0 0 0">Culture</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </SplitView.Pane>
 
-            <NavigationView.MenuItems>
-                <NavigationViewItem Content="All News" Tag="home">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE10F;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItemSeparator/>
-                <NavigationViewItemHeader Content="Sections"/>
-                <NavigationViewItem Icon="Filter" Content="Football" Tag="football"/>
-                <NavigationViewItem Icon="Filter" Content="Animals" Tag="animals"/>
-                <NavigationViewItem Icon="Filter" Content="Art and design" Tag="art and design"/>
-                <NavigationViewItem Icon="Filter" Content="Books" Tag="books"/>
-                <NavigationViewItem Icon="Filter" Content="Australia news" Tag="australia news"/>
-                <NavigationViewItem Icon="Filter" Content="Culture" Tag="culture"/>
-            </NavigationView.MenuItems>
-
-            <NavigationView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid Background="DimGray">
-                      
-                        <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                                   FontSize="28"
-                                   VerticalAlignment="Center"
-                                   Margin="10,0,10,0"
-                                   Text="{Binding PageTitle}"                                
-                                   HorizontalTextAlignment="Center"/>
-                        
-                    </Grid>
-                </DataTemplate>
-            </NavigationView.HeaderTemplate>
-
-            <NavigationView.PaneFooter>
-                <Image Source="Assets/logo.png" Width="50" Height="50" />
-            </NavigationView.PaneFooter>
-
-            <Frame x:Name="ContentFrame">
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition/>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
-
-        </NavigationView>
+            <SplitView.Content>
+                <Grid>
+                    <Button Content="Open" HorizontalAlignment="Center" Click="Button_Click" />
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
     </Grid>
     
 </views:MvxWindowsPage>

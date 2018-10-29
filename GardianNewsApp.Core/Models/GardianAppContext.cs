@@ -17,16 +17,9 @@ namespace GardianNewsApp.Core.Models
 {
     public class GardianAppContext
     {
-       
-        public GoToNewsDetailsCommand GoToDetailsCommand { get; set; }
-
-        public IMvxNavigationService MvxNavigation
-        {
-            get;
-            set;
-        }
-
+      
         public StoryHeader SelectedItem { get; set; }
+        
 
         //Singelton instance
         private static GardianAppContext instance;
@@ -48,16 +41,8 @@ namespace GardianNewsApp.Core.Models
         {
             _httpService = new HttpService();
             _parametrs = new Dictionary<string, string>();
+
             NewsCollection = new ObservableCollection<StoryHeader>();
-            GoToDetailsCommand = new GoToNewsDetailsCommand();
-        }
-        public void GoToNewsDetails(string url)
-        {
-            MvxNavigation.Navigate<DetailsViewModel, string>(url);
-        }
-        public void GoToSectionsPage(string sections)
-        {
-            MvxNavigation.Navigate<SectionViewModel, string>(sections);
         }
 
         public async Task<ObservableCollection<StoryHeader>> GetAllNewsAsync()

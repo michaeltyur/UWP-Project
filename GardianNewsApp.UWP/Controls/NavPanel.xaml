@@ -1,0 +1,41 @@
+﻿<UserControl
+    x:Class="GardianNewsApp.UWP.Controls.NavPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <NavigationView x:Name="NavView" 
+                        IsSettingsVisible="True"
+                        ItemInvoked="NavView_ItemInvoked"
+                        AlwaysShowHeader="False">
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="All News" Tag="home">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE10F;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItemSeparator/>
+                <NavigationViewItemHeader Content="Sections"/>
+                <NavigationViewItem Icon="Filter" Content="Football" Tag="football"/>
+                <NavigationViewItem Icon="Filter" Content="Animals" Tag="animals"/>
+                <NavigationViewItem Icon="Filter" Content="Art and design" Tag="art and design"/>
+                <NavigationViewItem Icon="Filter" Content="Books" Tag="books"/>
+                <NavigationViewItem Icon="Filter" Content="Australia news" Tag="australia news"/>
+                <NavigationViewItem Icon="Filter" Content="Culture" Tag="culture"/>
+            </NavigationView.MenuItems>
+
+            <Frame x:Name="ContentFrame">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+
+        </NavigationView>
+    </Grid>
+</UserControl>

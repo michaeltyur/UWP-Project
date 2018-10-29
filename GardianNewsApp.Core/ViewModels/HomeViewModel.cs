@@ -1,15 +1,10 @@
 ﻿using GardianNewsApp.Core.Commands;
 using GardianNewsApp.Core.Models;
-using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace GardianNewsApp.Core.ViewModels
@@ -17,7 +12,7 @@ namespace GardianNewsApp.Core.ViewModels
     public class HomeViewModel : MvxViewModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
+        public string PageTitle { get; set; }
         public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
 
         public StoryHeader SelectedItem
@@ -34,9 +29,6 @@ namespace GardianNewsApp.Core.ViewModels
         }
 
         private GardianAppContext appContext;
-
-        
-        //public IMvxCommand GoToDetailsCommand { get; set; }
 
         //Progress Ring
         private bool progressRingIsActive;
@@ -64,21 +56,11 @@ namespace GardianNewsApp.Core.ViewModels
             ProgressRingVisibility = true; ;
         }
 
-        public override void Prepare()
-        {
-            // first callback. Initialize parameter-agnostic stuff here
-        }
-
-        //public async void GoToNewsDetails()
-        //{
-        //   var result = await _navigationService.Navigate< DetailsViewModel, string>(SelectedItem.ApiUrl);
-        //}
-
         private async void SetNewsCollectionAsync()
         {
                NewsCollection = await appContext.GetAllNewsAsync();
                ProgressRingIsActive = false;
-            ProgressRingVisibility = false; ;       
+               ProgressRingVisibility = false; ;       
         }
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)

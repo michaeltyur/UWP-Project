@@ -10,10 +10,11 @@ namespace GardianNewsApp.Core.ViewModels
    public class DetailsViewModel : MvxViewModel<string>, INotifyPropertyChanged
     {
         public string Html { get; set; }
+        public string PageTitle { get; set; }
 
         public DetailsViewModel()
         {
-            
+            PageTitle = "Details";
         }
         public override void Prepare()
         {

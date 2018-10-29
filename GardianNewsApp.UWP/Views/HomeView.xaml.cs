@@ -27,14 +27,16 @@ namespace GardianNewsApp.UWP.Views
         public HomeView()
         {
             this.InitializeComponent();
-            //DataContext = this;
         }
 
         private void NewsList_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var url = ((StoryHeader)((Image)e.OriginalSource).DataContext).WebUrl;
-            GardianAppContext.Instance.GoToNewsDetails(url);
+            //var url = ((StoryHeader)((Control)e.OriginalSource).DataContext).WebUrl;
+            //GardianAppContext.Instance.GoToNewsDetails(url);
         }
+
+ 
+  
 
     }
 }

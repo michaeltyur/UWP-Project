@@ -22,6 +22,8 @@ namespace GardianNewsApp.Core
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<HomeViewModel>();
+            
+            //RegisterAppStart<MainPageViewModel>();
         }
     }
 }

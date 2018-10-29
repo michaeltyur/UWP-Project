@@ -9,25 +9,25 @@
     mc:Ignorable="d"
     Background="LightGray"
     >
-
-    <ScrollViewer>
-        <StackPanel Orientation="Vertical"
-                Padding="0 40 0 0"
-                HorizontalAlignment="Center">
-            <Border BorderThickness="10"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border BorderThickness="10"
                 BorderBrush="DarkSlateGray"
-                Background="DarkSlateGray">
-                <TextBlock Text="Wellcome to gardian news app" 
+                Background="DarkSlateGray"
+                Grid.Row="0">
+                    <TextBlock Text="Wellcome to gardian news app" 
                        TextAlignment="Center"                      
                        FontSize="20"
                        Foreground="White"></TextBlock>
-            </Border>
-            <WebView MinWidth="800"
-                     MinHeight="800"
-                     Source="{Binding Html}"
-                     Margin="0 20 0 0"
-                     >
-            </WebView>
-        </StackPanel>
-    </ScrollViewer>
+                </Border>
+        <WebView MinWidth="800"
+                 MinHeight="800"
+                 Source="{Binding Html}"
+                 Margin="0 20 0 0"
+                 Grid.Row="1">
+        </WebView>
+    </Grid>
 </views:MvxWindowsPage>

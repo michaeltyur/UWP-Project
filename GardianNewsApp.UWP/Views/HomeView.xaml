@@ -5,29 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:GardianNewsApp.UWP.Converters"
+    xmlns:local2="using:GardianNewsApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="LightGray">
     <views:MvxWindowsPage.Resources>
         <local:DateToStringConverter x:Key="DateToStringConverter" />
-        
-        <DataTemplate x:Key="HamburgerTemplate" >
-            <Grid Width="240" Height="48">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <SymbolIcon Grid.Column="0"  
-                            Foreground="White" />
-                <TextBlock Grid.Column="1" 
-                           Text="fdfdf" 
-                           FontSize="16" 
-                           VerticalAlignment="Center" 
-                           Foreground="White" />
-            </Grid>
-        </DataTemplate>
-        
         <DataTemplate x:Key="NewsItem">
             <Border BorderThickness="3" 
                             Margin="5"
@@ -38,13 +22,6 @@
                                     MaxWidth="400" 
                                     MaxHeight="500"
                                     x:Name="ItemPanel">
-                        <controls:HamburgerMenu x:Name="hamburgerMenuControl"
-                                                PaneBackground="Black" 
-                                                Foreground="White" 
-                                                ItemTemplate="{StaticResource HamburgerTemplate}"                                   
-                                                OptionsItemTemplate="{StaticResource HamburgerTemplate}" >
-                            <Frame x:Name="contentFrame" Foreground="Black"/>
-                        </controls:HamburgerMenu>
                         <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
                         <TextBlock Text="{Binding WebTitle}"
                                        TextWrapping="WrapWholeWords"
@@ -72,35 +49,35 @@
                 </ScrollViewer>
             </Border>
         </DataTemplate>
-        
     </views:MvxWindowsPage.Resources>
-    <Grid>
+
+
+    <ScrollViewer>
+        <Grid>
         <Grid.ColumnDefinitions>
-       
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <controls:HamburgerMenu x:Name="HBMTest"                               
-                                HorizontalAlignment="Left" 
-                                Margin="10,66,0,0" 
-                                VerticalAlignment="Top" 
-                                ItemTemplate="{StaticResource HamburgerTemplate}" 
-                                PaneBackground="DimGray" 
-                                Foreground="White">
-            <Frame x:Name="contentFrame" 
-                   Margin="0,0,61,0" />
-        </controls:HamburgerMenu>
-        <ScrollViewer >
-            <StackPanel Orientation="Vertical"
-                Padding="0 40 0 0"
-                HorizontalAlignment="Center">
-                <Border BorderThickness="10"
-                        BorderBrush="DarkSlateGray"
-                        Background="DarkSlateGray">
-                    <TextBlock Text="Wellcome to gardian news app" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Border BorderThickness="10"
+                BorderBrush="DarkSlateGray"
+                Background="DarkSlateGray"
+                Grid.Row="0"
+                Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Wellcome to gardian news app" 
                        TextAlignment="Center"                      
                        FontSize="20"
                        Foreground="White"></TextBlock>
-                </Border>
-                <ProgressRing x:Name="ProgressRing" 
+        </Border>
+        
+        <local2:NavPanel Grid.Column="0"
+                         Grid.Row="1" />
+          
+        <ProgressRing x:Name="ProgressRing" 
                       IsActive="{Binding ProgressRingIsActive}" 
                       Visibility="{Binding ProgressRingVisibility}"
                       Height="150"
@@ -108,19 +85,26 @@
                       Foreground="Blue"
                       HorizontalContentAlignment="Center"
                       HorizontalAlignment="Center"
-                      Padding="0 20 20 0"/>
+                      Padding="0 20 20 0"                   
+                      Grid.Column="0" Grid.ColumnSpan="2"
+                      Grid.Row="0" Grid.RowSpan="2"/>
 
-                <GridView x:Name ="NewsList"
+        <GridView x:Name ="NewsList"
+                    Grid.Row="1"
+                    Grid.Column="1"
                     Background="LightGray" 
                     SelectionMode="Single"                   
                     ItemsSource="{Binding NewsCollection}"
                     VerticalContentAlignment="Center"
                     ItemTemplate="{StaticResource NewsItem}"
                     IsItemClickEnabled="True"
-                      SelectedItem="{Binding SelectedItem}"
-                      Tapped="NewsList_Tapped">
-                </GridView>
-            </StackPanel>
-        </ScrollViewer>
+                    SelectedItem="{Binding SelectedItem}"
+                  
+                    Tapped="NewsList_Tapped"
+                    HorizontalAlignment="Left">
+        </GridView>
+
     </Grid>
+    </ScrollViewer>
+
 </views:MvxWindowsPage>

@@ -35,8 +35,9 @@ namespace GardianNewsApp.UWP.Views
             //GardianAppContext.Instance.GoToNewsDetails(url);
         }
 
- 
-  
+        private void NewsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
 
+        }
     }
 }

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardianNewsApp.UWP", "GardianNewsApp.UWP\GardianNewsApp.UWP.csproj", "{345E7EF4-4956-40BA-9371-97480E1964EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GardianNewsApp.Core", "GardianNewsApp.Core\GardianNewsApp.Core.csproj", "{ACBFF014-9258-47A4-8FAA-BAFEAC8D9500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardianNewsApp.Core", "GardianNewsApp.Core\GardianNewsApp.Core.csproj", "{ACBFF014-9258-47A4-8FAA-BAFEAC8D9500}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

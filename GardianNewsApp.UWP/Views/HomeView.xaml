@@ -51,9 +51,7 @@
         </DataTemplate>
     </views:MvxWindowsPage.Resources>
 
-
-    <ScrollViewer>
-        <Grid>
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
@@ -62,7 +60,7 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <Border BorderThickness="10"
                 BorderBrush="DarkSlateGray"
                 Background="DarkSlateGray"
@@ -73,10 +71,10 @@
                        FontSize="20"
                        Foreground="White"></TextBlock>
         </Border>
-        
+
         <local2:NavPanel Grid.Column="0"
                          Grid.Row="1" />
-          
+
         <ProgressRing x:Name="ProgressRing" 
                       IsActive="{Binding ProgressRingIsActive}" 
                       Visibility="{Binding ProgressRingVisibility}"
@@ -88,10 +86,10 @@
                       Padding="0 20 20 0"                   
                       Grid.Column="0" Grid.ColumnSpan="2"
                       Grid.Row="0" Grid.RowSpan="2"/>
-
-        <GridView x:Name ="NewsList"
-                    Grid.Row="1"
-                    Grid.Column="1"
+        <ScrollViewer Grid.Row="1"
+                    Grid.Column="1">
+            <GridView x:Name ="NewsList"
+                   
                     Background="LightGray" 
                     SelectionMode="Single"                   
                     ItemsSource="{Binding NewsCollection}"
@@ -99,12 +97,14 @@
                     ItemTemplate="{StaticResource NewsItem}"
                     IsItemClickEnabled="True"
                     SelectedItem="{Binding SelectedItem}"
-                  
+                    ItemClick="NewsList_ItemClick"
                     Tapped="NewsList_Tapped"
-                    HorizontalAlignment="Left">
-        </GridView>
+                    HorizontalAlignment="Left"
+                    ScrollViewer.VerticalScrollMode="Enabled"
+                  ScrollViewer.IsVerticalRailEnabled="True"
+                  ScrollViewer.IsScrollInertiaEnabled="True">
+            </GridView>
+        </ScrollViewer>
 
     </Grid>
-    </ScrollViewer>
-
 </views:MvxWindowsPage>

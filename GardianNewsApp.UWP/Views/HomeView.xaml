@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="LightGray">
+    
     <views:MvxWindowsPage.Resources>
         <local:DateToStringConverter x:Key="DateToStringConverter" />
         <DataTemplate x:Key="NewsItem">
@@ -55,134 +56,47 @@
                    DisplayMode="CompactOverlay" 
                    CompactPaneLength="48"
                    OpenPaneLength="200"
-                   PaneBackground="LightBlue"
+                   PaneBackground="Gray"
                    IsPaneOpen="{Binding IsPaneOpen,Mode=TwoWay}">
             <SplitView.Pane>
 
-                <StackPanel Orientation="Vertical" >
-                    <StackPanel Orientation="Vertical" >
-                        <Button Background="Transparent" 
-                                Width="200" 
-                                Height="50"
-                                HorizontalContentAlignment="Left"
-                                Command="{Binding NavMenuTriggerCommand}">
-                            <StackPanel Orientation="Horizontal" 
-                                        VerticalAlignment="Center"
-                                        Margin="0 0 0 10">
-                                <SymbolIcon Symbol="List" 
-                                            Height="40"
-                                            Width="40"/>
-                            </StackPanel>
-                        </Button>
-                        <Button Background="Transparent" 
-                                Width="200" 
-                                HorizontalContentAlignment="Left">
-                            <StackPanel Orientation="Horizontal" 
-                                        Margin="0 0 0 10"
-                                        VerticalAlignment="Center">
-                                <SymbolIcon Symbol="Home"
-                                            Tag="All News" />
-                                <TextBlock Margin="40 0 0 0">All News</TextBlock>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
-                    <Button Background="Transparent"
-                            Width="200" 
-                            HorizontalContentAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Filter"
-                                        Tag="football" />
-                            <TextBlock Margin="40 0 0 0">Football</TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button Background="Transparent"
-                            Width="200" 
-                            HorizontalContentAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Filter"
-                                        Tag="animals" />
-                            <TextBlock Margin="40 0 0 0">Animals</TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button Background="Transparent"
-                            Width="200" 
-                            HorizontalContentAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Filter"
-                                        Tag="art and design" />
-                            <TextBlock Margin="40 0 0 0">Art and design</TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button Background="Transparent"
-                            Width="200" 
-                            HorizontalContentAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Filter"
-                                        Tag="books" />
-                            <TextBlock Margin="40 0 0 0">Books</TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button Background="Transparent"
-                            Width="200" 
-                            HorizontalContentAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Filter"
-                                        Tag="australia news" />
-                            <TextBlock Margin="40 0 0 0">Australia news</TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button Background="Transparent"
-                            Width="200" 
-                            HorizontalContentAlignment="Left">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Filter"
-                                        Tag="culture"/>
-                            <TextBlock Margin="40 0 0 0">Culture</TextBlock>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </SplitView.Pane>
+                <local2:NavPanel></local2:NavPanel>
 
+            </SplitView.Pane>
             <SplitView.Content>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
 
-                    <Border Background="LightBlue"
-                            Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                  
+                    <Border Background="Gray"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
                         <TextBlock Text="{Binding PageTitle}" 
                                    TextAlignment="Center"                      
                                    FontSize="20"
                                    VerticalAlignment="Center"
-                                   FontWeight="SemiBold"></TextBlock>
+                                   FontWeight="SemiBold"/>
                     </Border>
 
-                    <ProgressRing x:Name="ProgressRing" 
-                      IsActive="{Binding ProgressRingIsActive}" 
-                      Visibility="{Binding ProgressRingVisibility}"
-                      Height="150"
-                      Width="150" 
-                      Foreground="Blue"
-                      HorizontalContentAlignment="Center"
-                      HorizontalAlignment="Center"
-                      Padding="0 20 20 0"                   
-                      Grid.Row="1"/>
-                    
+  
+                    <local2:RingProgress Grid.Row="1"></local2:RingProgress>
+
                     <ScrollViewer Grid.Row="1">
-                        <GridView x:Name ="NewsList"
-                   
-                    Background="LightGray" 
-                    SelectionMode="Single"                   
-                    ItemsSource="{Binding NewsCollection}"
-                    VerticalContentAlignment="Top"
-                    ItemTemplate="{StaticResource NewsItem}"
-                    IsItemClickEnabled="False"
-                    HorizontalAlignment="Center"
-                    ScrollViewer.VerticalScrollMode="Enabled"
-                    ScrollViewer.IsVerticalRailEnabled="True"
-                    ScrollViewer.IsScrollInertiaEnabled="True">
+                        <GridView x:Name ="NewsList"                   
+                                  Background="LightGray" 
+                                  SelectionMode="Single"                   
+                                  ItemsSource="{Binding NewsCollection}"
+                                  VerticalContentAlignment="Top"
+                                  ItemTemplate="{StaticResource NewsItem}"
+                                  IsItemClickEnabled="False"
+                                  HorizontalAlignment="Center"
+                                  ScrollViewer.VerticalScrollMode="Enabled"
+                                  ScrollViewer.IsVerticalRailEnabled="True"
+                                  ScrollViewer.IsScrollInertiaEnabled="True">
                         </GridView>
                     </ScrollViewer>
                 </Grid>
@@ -190,6 +104,4 @@
         </SplitView>
     </Grid>
 
-    
-    
 </views:MvxWindowsPage>

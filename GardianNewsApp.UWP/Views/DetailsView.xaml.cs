@@ -1,4 +1,5 @@
-﻿using MvvmCross.Platforms.Uap.Views;
+﻿using GardianNewsApp.UWP.Settings;
+using MvvmCross.Platforms.Uap.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,7 @@ namespace GardianNewsApp.UWP.Views
         public DetailsView()
         {
             this.InitializeComponent();
+            SettingsService.SaveSettings();
         }
     }
 }

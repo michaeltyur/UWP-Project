@@ -98,7 +98,11 @@
     <Compile Include="Controls\NavPanel.xaml.cs">
       <DependentUpon>NavPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RingProgress.xaml.cs">
+      <DependentUpon>RingProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\DateToStringConverter.cs" />
+    <Compile Include="Settings\SettingsService.cs" />
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>
     </Compile>
@@ -120,6 +124,7 @@
     <None Include="GardianNewsApp.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ButtonIcons\justplay.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -135,6 +140,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\NavPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RingProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

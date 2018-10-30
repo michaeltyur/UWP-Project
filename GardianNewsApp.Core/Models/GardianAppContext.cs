@@ -12,37 +12,41 @@ using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Windows.Storage;
 
 namespace GardianNewsApp.Core.Models
 {
     public class GardianAppContext
     {
-      
-        public StoryHeader SelectedItem { get; set; }
-        
+        private static GardianAppContext instance = null;
 
-        //Singelton instance
-        private static GardianAppContext instance;
         public static GardianAppContext Instance
         {
             get
             {
-               return instance ?? (instance = new GardianAppContext());   
+                if (instance == null)
+                {
+                    instance = new GardianAppContext();
+                }
+                return instance;
             }
         }
 
-        public string NewsDetails { get; set; }
+        //storage setting
+        public AppSettings Settings { get; set; }
 
-       public ObservableCollection<StoryHeader> NewsCollection { get; set; }
+        public ObservableCollection<StoryHeader> NewsCollection { get; set; }
+
         private HttpService _httpService;
 
         private Dictionary<string, string> _parametrs;
+
         private GardianAppContext()
         {
             _httpService = new HttpService();
             _parametrs = new Dictionary<string, string>();
 
-            NewsCollection = new ObservableCollection<StoryHeader>();
+             NewsCollection = new ObservableCollection<StoryHeader>();
         }
 
         public async Task<ObservableCollection<StoryHeader>> GetAllNewsAsync()
@@ -89,7 +93,7 @@ namespace GardianNewsApp.Core.Models
             _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
             _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS);
             _parametrs.Add(Constants.SHOW_ELEMENTS_PARAM, Constants.SHOW_ELEMENTS);
-            _parametrs.Add(Constants.SHOW_BLOCKS_PARAM, Constants.SHOW_BLOCKS);
+            _parametrs.Add(Constants.PAGE_SIZE_PARAM, Constants.PAGE_PARAM);
         }
 
         private void SetSectionsParametrsDictionary(string section)
@@ -98,6 +102,7 @@ namespace GardianNewsApp.Core.Models
             _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
             _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS);
             _parametrs.Add(Constants.SHOW_ELEMENTS_PARAM, Constants.SHOW_ELEMENTS);
+            _parametrs.Add(Constants.PAGE_SIZE_PARAM, Constants.PAGE_PARAM);
             _parametrs.Add("q", section);
         }
 

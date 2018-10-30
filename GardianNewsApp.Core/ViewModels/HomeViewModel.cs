@@ -1,8 +1,10 @@
 ﻿using GardianNewsApp.Core.Commands;
 using GardianNewsApp.Core.Models;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -15,15 +17,12 @@ namespace GardianNewsApp.Core.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public string PageTitle { get; set; }
 
+        //Command
         public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
         public IMvxCommand NavMenuTriggerCommand { get; set; }
+        public NavCommand NavCommand { get; set; }
 
-        
-        public StoryHeader SelectedItem
-        {
-            get { return appContext.SelectedItem; }
-            set { appContext.SelectedItem = value; OnPropertyChanged (); }
-        }
+
         private  bool isPaneOpen;
         public  bool IsPaneOpen
         {
@@ -57,11 +56,16 @@ namespace GardianNewsApp.Core.ViewModels
         public HomeViewModel(IMvxNavigationService navigationService)
         {
             appContext = GardianAppContext.Instance;
+
+            appContext.Settings = new AppSettings("All News", string.Empty);
+
+
             //Command
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
+            NavCommand = new NavCommand(navigationService);
 
-         
+
             PageTitle = "All News";
 
             NewsCollection = new ObservableCollection<StoryHeader>();

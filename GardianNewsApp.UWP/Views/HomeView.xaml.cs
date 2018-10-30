@@ -1,4 +1,5 @@
 ﻿using GardianNewsApp.Core.Models;
+using GardianNewsApp.UWP.Settings;
 using MvvmCross.Platforms.Uap.Views;
 using System;
 using System.Collections.Generic;
@@ -24,20 +25,13 @@ namespace GardianNewsApp.UWP.Views
     /// </summary>
     public sealed partial class HomeView : MvxWindowsPage
     {
+
         public HomeView()
         {
             this.InitializeComponent();
+            SettingsService.SaveSettings();
         }
 
-        private void NewsList_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            //var url = ((StoryHeader)((Control)e.OriginalSource).DataContext).WebUrl;
-            //GardianAppContext.Instance.GoToNewsDetails(url);
-        }
 
-        private void NewsList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
-        }
     }
 }

@@ -19,8 +19,18 @@
         public const string SHOW_BLOCKS = "body:latest:20"; 
 
         public const string PAGE_SIZE_PARAM = "page-size";
-        public const string PAGE_PARAM = "page";
+        public const string PAGE_PARAM = "20";
 
     }
-
 }
+    public enum Pages
+    {
+            All_News=1,
+             Football,
+              Animals,
+       Art_And_Design,
+                Books,
+       Australia_News,
+              Culture,
+               Details
+    }

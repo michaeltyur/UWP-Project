@@ -6,28 +6,50 @@
     xmlns:local="using:GardianNewsApp.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local2="using:GardianNewsApp.UWP.Controls"
     mc:Ignorable="d"
     Background="LightGray"
     >
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Border BorderThickness="10"
-                BorderBrush="DarkSlateGray"
-                Background="DarkSlateGray"
-                Grid.Row="0">
-                    <TextBlock Text="Wellcome to gardian news app" 
-                       TextAlignment="Center"                      
-                       FontSize="20"
-                       Foreground="White"></TextBlock>
-                </Border>
-        <WebView MinWidth="800"
-                 MinHeight="800"
-                 Source="{Binding Html}"
-                 Margin="0 20 0 0"
-                 Grid.Row="1">
-        </WebView>
+        <SplitView x:Name="splitView"
+                   DisplayMode="CompactOverlay" 
+                   CompactPaneLength="48"
+                   OpenPaneLength="200"
+                   PaneBackground="Gray"
+                   IsPaneOpen="{Binding IsPaneOpen,Mode=TwoWay}">
+            <SplitView.Pane>
+
+                <local2:NavPanel></local2:NavPanel>
+
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Background="Gray"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                        <TextBlock Text="{Binding PageTitle}" 
+                                   TextAlignment="Center"                      
+                                   FontSize="20"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+
+                    <WebView Source="{Binding Html}"
+                             Grid.Row="1"
+                             Grid.Column="1">
+                    </WebView>
+
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
     </Grid>
+
 </views:MvxWindowsPage>

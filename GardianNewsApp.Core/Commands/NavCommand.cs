@@ -5,20 +5,18 @@ using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Input;
 
 namespace GardianNewsApp.Core.Commands
 {
-    public class GoToNewsDetailsCommand : IMvxCommand
+    public class NavCommand : IMvxCommand
     {
+        public event EventHandler CanExecuteChanged;
         private IMvxNavigationService _navigationService;
 
-        public GoToNewsDetailsCommand(IMvxNavigationService navigationService)
+        public NavCommand(IMvxNavigationService navigationService)
         {
             _navigationService = navigationService;
         }
-        public event EventHandler CanExecuteChanged;
-
         public bool CanExecute()
         {
             throw new NotImplementedException();
@@ -36,9 +34,17 @@ namespace GardianNewsApp.Core.Commands
 
         public void Execute(object parameter)
         {
-            string url = (string)parameter;
-            //GardianAppContext.Instance.GoToNewsDetails(url);
-            _navigationService.Navigate<DetailsViewModel, string>(url);
+            var endpoint = (string)parameter;
+
+            switch (endpoint)
+            {
+                case "All News":
+                    _navigationService.Navigate<HomeViewModel>();
+                    break;
+                default:
+                    _navigationService.Navigate<SectionViewModel, string>(endpoint);
+                    break;
+            }
         }
 
         public void RaiseCanExecuteChanged()

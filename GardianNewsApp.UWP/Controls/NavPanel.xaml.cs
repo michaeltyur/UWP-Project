@@ -24,21 +24,5 @@ namespace GardianNewsApp.UWP.Controls
         {
             this.InitializeComponent();
         }
-        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            if (args.IsSettingsInvoked)
-            {
-                ContentFrame.Navigate(typeof(HomeView));
-            }
-            if (args.InvokedItem == "Начальная страница")
-            {
-                ContentFrame.Navigate(typeof(HomeView));
-            }
-        }
-
-        private void NavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
     }
 }

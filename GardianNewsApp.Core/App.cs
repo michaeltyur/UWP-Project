@@ -21,8 +21,36 @@ namespace GardianNewsApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<HomeViewModel>();
-            
+
+            //Mvx.IoCProvider.RegisterSingleton(() => new GardianAppContext());
+
+            var settings = GardianAppContext.Instance.Settings;
+            if (settings != null)
+            {
+                switch (settings.PageSettings)
+                {
+                    case "Football":
+                    case "Animals":
+                    case "Art and Design":
+                    case "Books":
+                    case "Australia-News":
+                    case "Culture":
+                        RegisterAppStart<SectionViewModel, string>();
+
+                        break;
+                    case "Details":
+                        RegisterAppStart<DetailsViewModel, string>();
+                        break;
+                    default:
+                        RegisterAppStart<HomeViewModel>();
+                        break;
+
+                }
+            }
+            else RegisterAppStart<HomeViewModel>();
+
+
+
             //RegisterAppStart<MainPageViewModel>();
         }
     }

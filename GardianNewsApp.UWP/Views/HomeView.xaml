@@ -11,7 +11,9 @@
     Background="LightGray">
     
     <views:MvxWindowsPage.Resources>
+        
         <local:DateToStringConverter x:Key="DateToStringConverter" />
+        
         <DataTemplate x:Key="NewsItem">
             <Button Command="{Binding DataContext.GoToNewsDetailsCommand, ElementName=NewsList}"
                         CommandParameter="{Binding WebUrl}"
@@ -44,6 +46,7 @@
                 </ScrollViewer>
             </Button>
         </DataTemplate>
+        
     </views:MvxWindowsPage.Resources>
 
     <Grid>

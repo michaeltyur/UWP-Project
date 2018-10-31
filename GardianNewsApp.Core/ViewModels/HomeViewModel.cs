@@ -15,21 +15,25 @@ namespace GardianNewsApp.Core.ViewModels
     public class HomeViewModel : MvxViewModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        public string PageTitle { get; set; }
 
         //Command
         public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
         public IMvxCommand NavMenuTriggerCommand { get; set; }
         public NavCommand NavCommand { get; set; }
 
-
+        //Binding proprietes
+        public string PageTitle { get; set; }
         private  bool isPaneOpen;
         public  bool IsPaneOpen
         {
             get { return isPaneOpen; }
             set { isPaneOpen = value; OnPropertyChanged(); }
         }
-
+        public StoryHeader Selected
+        {
+            get { return GardianAppContext.Instance.Selected; }
+            set { GardianAppContext.Instance.Selected = value; }
+        }
         private ObservableCollection<StoryHeader> newsCollection;
         public ObservableCollection<StoryHeader> NewsCollection
         {
@@ -81,7 +85,7 @@ namespace GardianNewsApp.Core.ViewModels
         {
                NewsCollection = await appContext.GetAllNewsAsync();
                ProgressRingIsActive = false;
-               ProgressRingVisibility = false; ;       
+               ProgressRingVisibility = false;     
         }
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)

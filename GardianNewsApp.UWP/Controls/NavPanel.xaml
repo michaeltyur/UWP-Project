@@ -48,8 +48,9 @@
                 Command="{Binding NavCommand}"
                 CommandParameter="Football">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Filter"
-                            Tag="football"/>
+                <!--<SymbolIcon Symbol="Filter"
+                            Tag="football"/>-->               
+                <Image Source="D:\Google drive\Learning\UWP\UWP-Project\GardianNewsApp.UWP\Assets\ButtonIcons\justplay.png"></Image>
                 <TextBlock Margin="40 0 0 0">Football</TextBlock>
             </StackPanel>
         </Button>

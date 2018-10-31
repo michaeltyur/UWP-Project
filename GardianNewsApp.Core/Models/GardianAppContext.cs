@@ -12,7 +12,6 @@ using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using Windows.Storage;
 
 namespace GardianNewsApp.Core.Models
 {
@@ -40,6 +39,8 @@ namespace GardianNewsApp.Core.Models
         private HttpService _httpService;
 
         private Dictionary<string, string> _parametrs;
+
+        public StoryHeader Selected { get; set; }
 
         private GardianAppContext()
         {

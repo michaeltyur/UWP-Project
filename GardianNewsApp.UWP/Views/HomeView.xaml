@@ -16,16 +16,16 @@
         
         <DataTemplate x:Key="NewsItem">
             <Button Command="{Binding DataContext.GoToNewsDetailsCommand, ElementName=NewsList}"
-                        CommandParameter="{Binding WebUrl}"
-                        BorderBrush="Gray"
-                        BorderThickness="3"
-                        Margin="5">
+                    CommandParameter="{Binding WebUrl}"
+                    BorderBrush="Gray"
+                    BorderThickness="3"
+                    Margin="5">
                     
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                    <StackPanel  x:Name="ItemPanel"
-                                    Orientation="Vertical" 
-                                    MaxWidth="400" 
-                                    MaxHeight="450">
+                                Orientation="Vertical" 
+                                MaxWidth="400" 
+                                MaxHeight="450">
                     <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
                     <TextBlock Text="{Binding WebTitle}"
                                    TextWrapping="WrapWholeWords"
@@ -41,6 +41,11 @@
                                    FontStyle="Italic"
                                    Margin="5"/>
                         <TextBlock Margin="5" Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
+                            <Button Width="100" 
+                                    Margin="125 0 0 0"
+                                    FontFamily="Segoe MDL2 Assets" 
+                                    Content="&#xE72D;" 
+                                    HorizontalAlignment="Right"></Button>
                     </StackPanel>
                 </StackPanel>
                 </ScrollViewer>
@@ -57,7 +62,7 @@
                    PaneBackground="Gray"
                    IsPaneOpen="{Binding IsPaneOpen,Mode=TwoWay}">
             <SplitView.Pane>
-
+              <!--nav buttons-->
                 <local2:NavPanel></local2:NavPanel>
 
             </SplitView.Pane>
@@ -68,7 +73,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                  
+
                     <Border Background="Gray"
                             Grid.Row="0"
                             Grid.Column="0"
@@ -79,14 +84,14 @@
                                    VerticalAlignment="Center"
                                    FontWeight="SemiBold"/>
                     </Border>
-
-  
+                    
                     <local2:RingProgress Grid.Row="1"></local2:RingProgress>
 
                     <ScrollViewer Grid.Row="1">
                         <GridView x:Name ="NewsList"                   
                                   Background="LightGray" 
-                                  SelectionMode="Single"                   
+                                  SelectionMode="Single"     
+                                  SelectedItem="{Binding SelectedItem}"
                                   ItemsSource="{Binding NewsCollection}"
                                   VerticalContentAlignment="Top"
                                   ItemTemplate="{StaticResource NewsItem}"

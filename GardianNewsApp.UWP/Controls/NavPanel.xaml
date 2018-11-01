@@ -34,8 +34,7 @@
             <StackPanel Orientation="Horizontal" 
                                         Margin="0 0 0 10"
                                         VerticalAlignment="Center">
-                <SymbolIcon Symbol="Home"
-                                            Tag="All News"/>
+                <SymbolIcon Symbol="Home" Tag="All News"/>
                 <TextBlock Margin="40 0 0 0">All News</TextBlock>
             </StackPanel>
         </Button>
@@ -48,9 +47,10 @@
                 Command="{Binding NavCommand}"
                 CommandParameter="Football">
             <StackPanel Orientation="Horizontal">
-                <!--<SymbolIcon Symbol="Filter"
-                            Tag="football"/>-->               
-                <Image Source="D:\Google drive\Learning\UWP\UWP-Project\GardianNewsApp.UWP\Assets\ButtonIcons\justplay.png"></Image>
+                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                          Glyph="&#xEA3B;" 
+                          Tag="football"/>
+                <!--<Image Source="D:\Google drive\Learning\UWP\UWP-Project\GardianNewsApp.UWP\Assets\ButtonIcons\justplay.png"></Image>-->
                 <TextBlock Margin="40 0 0 0">Football</TextBlock>
             </StackPanel>
         </Button>
@@ -62,8 +62,11 @@
                 Command="{Binding NavCommand}"
                 CommandParameter="Animals">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Filter"
-                                        Tag="animals" />
+                <!--<SymbolIcon Symbol="Filter"
+                                        Tag="animals" />-->
+                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                          Glyph="&#xF1AD;" 
+                          Tag="football"/>
                 <TextBlock Margin="40 0 0 0">Animals</TextBlock>
             </StackPanel>
         </Button>
@@ -75,8 +78,9 @@
                             Command="{Binding NavCommand}"
                             CommandParameter="Art and Design">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Filter"
-                                        Tag="art and design" />
+                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                          Glyph="&#xEB9F;" 
+                          Tag="art and design"/>
                 <TextBlock Margin="40 0 0 0">Art and design</TextBlock>
             </StackPanel>
         </Button>
@@ -88,8 +92,9 @@
                             Command="{Binding NavCommand}"
                             CommandParameter="Books">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Filter"
-                                        Tag="books" />
+                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                          Glyph="&#xEE56;" 
+                          Tag="football"/>
                 <TextBlock Margin="40 0 0 0">Books</TextBlock>
             </StackPanel>
         </Button>
@@ -101,7 +106,7 @@
                             Command="{Binding NavCommand}"
                             CommandParameter="Australia-News">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Filter"
+                <SymbolIcon Symbol="World"
                                         Tag="australia news" />
                 <TextBlock Margin="40 0 0 0">Australia news</TextBlock>
             </StackPanel>
@@ -114,8 +119,9 @@
                             Command="{Binding NavCommand}"
                             CommandParameter="Culture">
             <StackPanel Orientation="Horizontal">
-                <SymbolIcon Symbol="Filter"
-                                        Tag="culture"/>
+                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                          Glyph="&#xEC08;" 
+                          Tag="culture"/>
                 <TextBlock Margin="40 0 0 0">Culture</TextBlock>
             </StackPanel>
         </Button>
@@ -127,8 +133,9 @@
                             Command="{Binding NavCommand}"
                             CommandParameter="Love-And-Sex">
                     <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Symbol="Filter"
-                                        Tag="love and sex"/>
+                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                          Glyph="&#xE95E;" 
+                          Tag="love and sex"/>
                 <TextBlock Margin="40 0 0 0">Love-And-Sex</TextBlock>
             </StackPanel>
         </Button>

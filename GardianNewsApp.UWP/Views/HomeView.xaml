@@ -39,15 +39,18 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Publish Date:" 
                                    FontStyle="Italic"
-                                   Margin="5"/>
-                        <TextBlock Margin="5" Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Margin="5" 
+                                   VerticalAlignment="Center"
+                                   Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
                             <Button Width="100" 
-                                    Margin="117 0 0 0"
+                                    Margin="135 0 0 0"
                                     Height="30"
                                     FontFamily="Segoe MDL2 Assets" 
                                     Content="&#xE72D;" 
                                     HorizontalAlignment="Right"
-                                    ></Button>
+                                    BorderThickness="2"
+                                    BorderBrush="DimGray"></Button>
                     </StackPanel>
                 </StackPanel>
                 </ScrollViewer>

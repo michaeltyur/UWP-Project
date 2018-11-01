@@ -4,7 +4,8 @@ using System.Text;
 
 namespace GardianNewsApp.Core.Interfaces
 {
-    interface IShare
+    public interface IShare
     {
+        void Share();
     }
 }

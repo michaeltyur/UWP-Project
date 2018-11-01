@@ -42,10 +42,12 @@
                                    Margin="5"/>
                         <TextBlock Margin="5" Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
                             <Button Width="100" 
-                                    Margin="125 0 0 0"
+                                    Margin="117 0 0 0"
+                                    Height="30"
                                     FontFamily="Segoe MDL2 Assets" 
                                     Content="&#xE72D;" 
-                                    HorizontalAlignment="Right"></Button>
+                                    HorizontalAlignment="Right"
+                                    ></Button>
                     </StackPanel>
                 </StackPanel>
                 </ScrollViewer>

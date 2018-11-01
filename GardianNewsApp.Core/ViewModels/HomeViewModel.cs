@@ -93,5 +93,9 @@ namespace GardianNewsApp.Core.ViewModels
             // Raise the PropertyChanged event, passing the name of the property whose value has changed.
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+        public void Share(StoryHeader story)
+        {
+
+        }
     }
 }

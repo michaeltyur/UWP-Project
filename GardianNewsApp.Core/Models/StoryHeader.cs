@@ -30,19 +30,11 @@ namespace GardianNewsApp.Core.Models
         [JsonProperty(PropertyName = "fields")]
         public StoryHeaderAdditionalFields StoryHeaderAdditionalFields { get; set; }
 
-        [JsonProperty(PropertyName = "isHosted")]
-        public bool IsHosted { get; set; }
+        //[JsonProperty(PropertyName = "isHosted")]
+        //public bool IsHosted { get; set; }
 
         [JsonProperty(PropertyName = "blocks")]
         public Blocks Blocks { get; set; }
-
-        //public StoryHeader()
-        //{
-        //    var instance = GardianAppContext<SearchResult>.Instance;
-        //    GoToDetailsCommand = new  GoToNewsDetailsCommand(GardianAppContext<SearchResult>.Instance.MvxNavigation);
-        //}
-
-
 
     }
 }

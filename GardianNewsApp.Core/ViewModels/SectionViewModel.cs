@@ -1,4 +1,5 @@
 ﻿using GardianNewsApp.Core.Commands;
+using GardianNewsApp.Core.Interfaces;
 using GardianNewsApp.Core.Models;
 using MvvmCross;
 using MvvmCross.Commands;
@@ -87,14 +88,19 @@ namespace GardianNewsApp.Core.ViewModels
             var _parameter = PageTitle;
             _parameter = _parameter.ToLower().Replace(" ", "");
             NewsCollection = await GardianAppContext.Instance.GetSectionAsync(_parameter);
+            
+
             ProgressRingIsActive = false;
             ProgressRingVisibility = false;
-
         }
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        public void SaveSaveSettings(AppSettings settings)
+        {
+            var settingProvider = Mvx.IoCProvider.GetSingleton<ISettings>();
+            settingProvider.SaveSettings(settings);
+        }
     }
 }

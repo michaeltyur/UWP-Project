@@ -1,4 +1,5 @@
 ﻿using GardianNewsApp.Core.Commands;
+using GardianNewsApp.Core.Interfaces;
 using GardianNewsApp.Core.Models;
 using MvvmCross;
 using MvvmCross.Commands;
@@ -41,6 +42,9 @@ namespace GardianNewsApp.Core.ViewModels
             set { newsCollection = value;OnPropertyChanged(); }
         }
 
+        //Providers
+        ISettings saveProvider;
+
         private GardianAppContext appContext;
 
         //Progress Ring
@@ -57,12 +61,14 @@ namespace GardianNewsApp.Core.ViewModels
             set { progressRingVisibility = value; OnPropertyChanged(); }
         }
 
-        public HomeViewModel(IMvxNavigationService navigationService)
+        public HomeViewModel(IMvxNavigationService navigationService, ISettings saveProvider)
         {
+            this.saveProvider = saveProvider;
+
             appContext = GardianAppContext.Instance;
 
             appContext.Settings = new AppSettings("All News", string.Empty);
-
+            SaveSaveSettings(appContext.Settings);
 
             //Command
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
@@ -93,9 +99,9 @@ namespace GardianNewsApp.Core.ViewModels
             // Raise the PropertyChanged event, passing the name of the property whose value has changed.
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void Share(StoryHeader story)
+        public void SaveSaveSettings(AppSettings settings)
         {
-
+            saveProvider.SaveSettings(settings);
         }
     }
 }

@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Navigation;
 using GardianNewsApp.UWP.Settings;
 using MvvmCross;
 using GardianNewsApp.Core.Models;
+using GardianNewsApp.Core.Interfaces;
 
 namespace GardianNewsApp.UWP
 {
@@ -31,7 +32,8 @@ namespace GardianNewsApp.UWP
         {
             InitializeComponent();
             var appContext = GardianAppContext.Instance;
-            SettingsService.LoadSettings();
+            Mvx.IoCProvider.RegisterSingleton<ISettings>(() => new SettingsService());
+            //SettingsService.LoadSettings();
         }
     }
 

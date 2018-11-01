@@ -8,48 +8,52 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using GardianNewsApp.Core.Models;
 using Newtonsoft.Json;
+using GardianNewsApp.Core.Interfaces;
 
 namespace GardianNewsApp.UWP.Settings
 {
 
-    public static class SettingsService
+    public class SettingsService:ISettings
     {
         private const string SETTINGS_FILENAME = "settings.json";
 
-        private static StorageFolder _settingsFolder = ApplicationData.Current.LocalFolder;
+        private  StorageFolder _settingsFolder = ApplicationData.Current.LocalFolder;
 
-        public async static void LoadSettings()
+        //public object this[string propertyName] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public async Task<AppSettings> LoadSettings()
         {
             try
             {
                 StorageFile sf = await _settingsFolder.GetFileAsync(SETTINGS_FILENAME);
-                if (sf == null) return;
+                if (sf == null) return null;
 
                 string content = await FileIO.ReadTextAsync(sf);
                 var data = JsonConvert.DeserializeObject<AppSettings>(content);
-                GardianAppContext.Instance.Settings = data;
+                return data;
             }
             catch (Exception ex)
-            { return; }
+            {
+                throw new Exception();
+            }
         }
 
-        public async static Task<bool> SaveSettings()
+        public async  void SaveSettings(AppSettings appSettings)
         {
             try
             {
-                AppSettings data = GardianAppContext.Instance.Settings;
+                AppSettings data = appSettings;
                 if (data != null)
                 {
                     StorageFile file = await _settingsFolder.CreateFileAsync(SETTINGS_FILENAME, CreationCollisionOption.ReplaceExisting);
                     string content = JsonConvert.SerializeObject(data);
                     await FileIO.WriteTextAsync(file, content);
-                    return true;
+                   
                 }
-                else return false;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception();
             }
         }
     }

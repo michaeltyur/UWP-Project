@@ -20,6 +20,8 @@ using GardianNewsApp.UWP.Settings;
 using MvvmCross;
 using GardianNewsApp.Core.Models;
 using GardianNewsApp.Core.Interfaces;
+using Windows.UI.Popups;
+using GardianNewsApp.UWP.Share;
 
 namespace GardianNewsApp.UWP
 {
@@ -31,14 +33,23 @@ namespace GardianNewsApp.UWP
         public App()
         {
             InitializeComponent();
-            var appContext = GardianAppContext.Instance;
-            Mvx.IoCProvider.RegisterSingleton<ISettings>(() => new SettingsService());
-            //SettingsService.LoadSettings();
+           
         }
+
     }
 
-    public abstract class UWPApplication : MvxApplication<MvxWindowsSetup<Core.App>,Core.App>
+    public abstract class UWPApplication : MvxApplication<CustomSetup, Core.App>
     {
         
+    }
+    public class CustomSetup: MvxWindowsSetup<Core.App>
+    {
+        protected override void InitializeFirstChance()
+        {
+            Mvx.IoCProvider.RegisterSingleton<ISettings>(new SettingsService());
+            Mvx.IoCProvider.RegisterSingleton<IShare>(new ShareService());
+            base.InitializeFirstChance();
+                
+        }
     }
 }

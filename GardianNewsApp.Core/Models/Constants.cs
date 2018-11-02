@@ -11,6 +11,7 @@
 
         public const string SHOW_FIELDS_PARAM = "show-fields";
         public const string SHOW_FIELDS = "thumbnail,trailText";
+        public const string SHOW_FIELDS_ALL = "all";
 
         public const string SHOW_ELEMENTS_PARAM = "show-elements";
         public const string SHOW_ELEMENTS = "image";

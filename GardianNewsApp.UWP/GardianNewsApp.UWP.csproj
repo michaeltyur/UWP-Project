@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Converters\DateToStringConverter.cs" />
     <Compile Include="Settings\SettingsService.cs" />
+    <Compile Include="Share\ShareService.cs" />
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>
     </Compile>

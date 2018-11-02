@@ -60,7 +60,7 @@ namespace GardianNewsApp.Core.ViewModels
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
             NavCommand = new NavCommand(navigationService);
-            PageTitle = GardianAppContext.Instance.Settings.PageSettings;
+            PageTitle = Mvx.IoCProvider.GetSingleton<GardianAppContext>().Settings.PageSettings;
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
             InitializeSectionNewsCollection();
@@ -73,8 +73,9 @@ namespace GardianNewsApp.Core.ViewModels
         {
             PageTitle = parameter;
 
-            var appContext = GardianAppContext.Instance;
+            var appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
             appContext.Settings = new AppSettings(PageTitle, string.Empty);
+            appContext.SaveSettings(appContext.Settings);
         }
 
         public override async Task Initialize()
@@ -87,9 +88,8 @@ namespace GardianNewsApp.Core.ViewModels
         {
             var _parameter = PageTitle;
             _parameter = _parameter.ToLower().Replace(" ", "");
-            NewsCollection = await GardianAppContext.Instance.GetSectionAsync(_parameter);
+            NewsCollection = await Mvx.IoCProvider.GetSingleton<GardianAppContext>().GetSectionAsync(_parameter);
             
-
             ProgressRingIsActive = false;
             ProgressRingVisibility = false;
         }

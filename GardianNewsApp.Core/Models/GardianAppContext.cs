@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GardianNewsApp.Core.Commands;
+using GardianNewsApp.Core.Interfaces;
 using GardianNewsApp.Core.Models;
 using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
@@ -17,20 +18,6 @@ namespace GardianNewsApp.Core.Models
 {
     public class GardianAppContext
     {
-        private static GardianAppContext instance = null;
-
-        public static GardianAppContext Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new GardianAppContext();
-                }
-                return instance;
-            }
-        }
-
         //storage setting
         public AppSettings Settings { get; set; }
 
@@ -42,19 +29,19 @@ namespace GardianNewsApp.Core.Models
 
         public StoryHeader Selected { get; set; }
 
-        private GardianAppContext()
+        public GardianAppContext()
         {
             _httpService = new HttpService();
             _parametrs = new Dictionary<string, string>();
 
-             NewsCollection = new ObservableCollection<StoryHeader>();
+            NewsCollection = new ObservableCollection<StoryHeader>();
         }
 
         public async Task<ObservableCollection<StoryHeader>> GetAllNewsAsync()
         {
             
             NewsCollection.Clear();
-            SetAllNewsParametrsDictionary();
+            SetAllNewsParametersDictionary();
 
             var result= await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, Constants.END_POINT_SEARCH, _parametrs);
            
@@ -73,7 +60,7 @@ namespace GardianNewsApp.Core.Models
         {
 
             NewsCollection.Clear();
-            SetSectionsParametrsDictionary(section);
+            SetSectionsParametersDictionary(section);
 
             var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, Constants.END_POINT_SEARCH, _parametrs);
 
@@ -88,7 +75,34 @@ namespace GardianNewsApp.Core.Models
             return NewsCollection;
         }
 
-        private void SetAllNewsParametrsDictionary()
+        public async Task<StoryHeader> GetSingleItemAsync(string id)
+        {
+
+            NewsCollection.Clear();
+            SetSectionsParametersDictionary(id);
+
+            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, id, _parametrs);
+            if(result!=null)
+            {
+               Selected = result.SearchResponse.StoryHeaders[0];
+            }
+
+           return  Selected;
+        }
+
+        public void SaveSettings(AppSettings settings)
+        {
+            var settingsProvider = Mvx.IoCProvider.GetSingleton<ISettings>();
+            settingsProvider.SaveSettings(settings);
+        }
+
+        public async Task<AppSettings> LoadSettings()
+        {
+            var settingsProvider = Mvx.IoCProvider.GetSingleton<ISettings>();
+            return await settingsProvider.LoadSettings();
+        }
+
+        private void SetAllNewsParametersDictionary()
         {
             _parametrs.Clear();
             _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
@@ -97,7 +111,7 @@ namespace GardianNewsApp.Core.Models
             _parametrs.Add(Constants.PAGE_SIZE_PARAM, Constants.PAGE_PARAM);
         }
 
-        private void SetSectionsParametrsDictionary(string section)
+        private void SetSectionsParametersDictionary(string section)
         {
             _parametrs.Clear();
             _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
@@ -107,6 +121,11 @@ namespace GardianNewsApp.Core.Models
             _parametrs.Add("q", section);
         }
 
-
+        private void SetSingleItemParametersDictionary()
+        {
+            _parametrs.Clear();
+            _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
+            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS_ALL);
+        }
     }
 }

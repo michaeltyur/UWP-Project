@@ -18,8 +18,17 @@ namespace GardianNewsApp.Core.ViewModels
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         public IMvxCommand NavMenuTriggerCommand { get; set; }
         public NavCommand NavCommand { get; set; }
+        public ShareCommand ShareCommand { get; set; }
 
-        public string Html { get; set; }
+        private GardianAppContext appContext;
+
+        private StoryHeader selected;
+        public StoryHeader Selected
+        {
+            get { return selected; }
+            set { selected = value;OnPropertyChanged(); }
+        }
+
         public string PageTitle { get; set; }
         private bool isPaneOpen;
         public bool IsPaneOpen
@@ -28,37 +37,51 @@ namespace GardianNewsApp.Core.ViewModels
             set { isPaneOpen = value; OnPropertyChanged(); }
         }
 
+        //Progress Ring
+        private bool progressRingIsActive;
+        public bool ProgressRingIsActive
+        {
+            get { return progressRingIsActive; }
+            set { progressRingIsActive = value; OnPropertyChanged(); }
+        }
+        private bool progressRingVisibility;
+        public bool ProgressRingVisibility
+        {
+            get { return progressRingVisibility; }
+            set { progressRingVisibility = value; OnPropertyChanged(); }
+        }
+
         public DetailsViewModel(IMvxNavigationService navigationService)
         {
-         
+
+            // receive and store the parameter here
+            appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
+            appContext.SaveSettings(appContext.Settings);
 
             //Commands
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
             NavCommand = new NavCommand(navigationService);
+            ShareCommand = new ShareCommand();
 
             PageTitle = "Details";
-            Html = GardianAppContext.Instance.Settings.UrlSettings;
+
+
         }
 
-        public override void Prepare()
+        private async void InitializeSelectedItem()
         {
-            // first callback. Initialize parameter-agnostic stuff here
+            var _parameter = appContext.Settings.IdSettings;
+            Selected = await appContext.GetSingleItemAsync(_parameter);
+
+            ProgressRingIsActive = false;
+            ProgressRingVisibility = false;
         }
 
         public override void Prepare(string parameter)
         {
-            // receive and store the parameter here
-            Html = parameter;
-
-            var appContext = GardianAppContext.Instance;
-
-            appContext.Settings = new AppSettings("Details",Html) ;
-        }
-
-        public override async Task Initialize()
-        {
-            await base.Initialize();
-          
+            var appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
+            appContext.Settings = new AppSettings(PageTitle, parameter);
+            appContext.SaveSettings(appContext.Settings);
         }
 
         private void NavPanelTrigger()
@@ -71,6 +94,7 @@ namespace GardianNewsApp.Core.ViewModels
             // Raise the PropertyChanged event, passing the name of the property whose value has changed.
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }
 

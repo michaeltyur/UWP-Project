@@ -1,4 +1,5 @@
-﻿using GardianNewsApp.Core.Models;
+﻿using GardianNewsApp.Core.Interfaces;
+using GardianNewsApp.Core.Models;
 using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.IoC;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Windows.UI.Xaml.Controls;
 
 namespace GardianNewsApp.Core
 {
@@ -21,12 +23,15 @@ namespace GardianNewsApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<GardianAppContext, GardianAppContext>();
 
-            //Mvx.IoCProvider.RegisterSingleton(() => new GardianAppContext());
+            var settings = Mvx.IoCProvider.GetSingleton<ISettings>().LoadSettings().Result;
 
-            var settings = GardianAppContext.Instance.Settings;
-            if (settings != null)
+            if (settings!=null)
             {
+               
+
+                Mvx.IoCProvider.GetSingleton<GardianAppContext>().Settings = settings;
                 switch (settings.PageSettings)
                 {
                     case "Football":
@@ -46,12 +51,9 @@ namespace GardianNewsApp.Core
                         break;
 
                 }
-            }
+            } 
             else RegisterAppStart<HomeViewModel>();
 
-
-
-            //RegisterAppStart<MainPageViewModel>();
         }
     }
 }

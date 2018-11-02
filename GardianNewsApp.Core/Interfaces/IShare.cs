@@ -6,6 +6,6 @@ namespace GardianNewsApp.Core.Interfaces
 {
     public interface IShare
     {
-        void Share();
+        void Share(string articleTitle, string url);
     }
 }

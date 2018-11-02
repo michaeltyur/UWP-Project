@@ -29,9 +29,7 @@ namespace GardianNewsApp.UWP.Views
         public HomeView()
         {
             this.InitializeComponent();
-            SettingsService.SaveSettings();
         }
-
-
+  
     }
 }

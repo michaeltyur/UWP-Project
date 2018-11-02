@@ -21,6 +21,8 @@ namespace GardianNewsApp.Core.ViewModels
         public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
         public IMvxCommand NavMenuTriggerCommand { get; set; }
         public NavCommand NavCommand { get; set; }
+        public ShareCommand ShareCommand { get; set; }
+        //public IMvxCommand ItemDetailsCommand { get; set; }
 
         //Binding proprietes
         public string PageTitle { get; set; }
@@ -32,8 +34,8 @@ namespace GardianNewsApp.Core.ViewModels
         }
         public StoryHeader Selected
         {
-            get { return GardianAppContext.Instance.Selected; }
-            set { GardianAppContext.Instance.Selected = value; }
+            get { return Mvx.IoCProvider.GetSingleton<GardianAppContext>().Selected; }
+            set { Mvx.IoCProvider.GetSingleton<GardianAppContext>().Selected = value; }
         }
         private ObservableCollection<StoryHeader> newsCollection;
         public ObservableCollection<StoryHeader> NewsCollection
@@ -42,8 +44,6 @@ namespace GardianNewsApp.Core.ViewModels
             set { newsCollection = value;OnPropertyChanged(); }
         }
 
-        //Providers
-        ISettings saveProvider;
 
         private GardianAppContext appContext;
 
@@ -61,20 +61,18 @@ namespace GardianNewsApp.Core.ViewModels
             set { progressRingVisibility = value; OnPropertyChanged(); }
         }
 
-        public HomeViewModel(IMvxNavigationService navigationService, ISettings saveProvider)
+        public HomeViewModel(IMvxNavigationService navigationService)
         {
-            this.saveProvider = saveProvider;
 
-            appContext = GardianAppContext.Instance;
-
+            appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
             appContext.Settings = new AppSettings("All News", string.Empty);
-            SaveSaveSettings(appContext.Settings);
+            appContext.SaveSettings(appContext.Settings);
 
             //Command
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
             NavCommand = new NavCommand(navigationService);
-
+            ShareCommand = new ShareCommand();
 
             PageTitle = "All News";
 
@@ -89,19 +87,15 @@ namespace GardianNewsApp.Core.ViewModels
         }
         private async void SetNewsCollectionAsync()
         {
-               NewsCollection = await appContext.GetAllNewsAsync();
-               ProgressRingIsActive = false;
-               ProgressRingVisibility = false;     
+             NewsCollection = await appContext.GetAllNewsAsync();
+             ProgressRingIsActive = false;
+             ProgressRingVisibility = false;     
         }
-
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             // Raise the PropertyChanged event, passing the name of the property whose value has changed.
             this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void SaveSaveSettings(AppSettings settings)
-        {
-            saveProvider.SaveSettings(settings);
-        }
+
     }
 }

@@ -1,23 +1,15 @@
-﻿using GardianNewsApp.Core.Models;
-using GardianNewsApp.Core.ViewModels;
+﻿using GardianNewsApp.Core.Interfaces;
+using GardianNewsApp.Core.Models;
 using MvvmCross;
 using MvvmCross.Commands;
-using MvvmCross.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Input;
 
 namespace GardianNewsApp.Core.Commands
 {
-    public class GoToNewsDetailsCommand : IMvxCommand
+    public class ShareCommand : IMvxCommand
     {
-        private IMvxNavigationService _navigationService;
-
-        public GoToNewsDetailsCommand(IMvxNavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute()
@@ -37,9 +29,11 @@ namespace GardianNewsApp.Core.Commands
 
         public void Execute(object parameter)
         {
-            string idItem = (string)parameter;
-            //Mvx.IoCProvider.GetSingleton<GardianAppContext>().Selected = item;
-            _navigationService.Navigate<DetailsViewModel,string>(idItem);
+            ShareObject article = (ShareObject)parameter;
+
+            var shareProvider = Mvx.IoCProvider.GetSingleton<IShare>();
+
+            shareProvider.Share(article.Title,article.Url);
         }
 
         public void RaiseCanExecuteChanged()

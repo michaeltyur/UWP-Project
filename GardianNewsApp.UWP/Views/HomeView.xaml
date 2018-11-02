@@ -7,26 +7,27 @@
     xmlns:local2="using:GardianNewsApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local3="using:GardianNewsApp.Core.Models"
     mc:Ignorable="d"
     Background="LightGray">
     
     <views:MvxWindowsPage.Resources>
         
         <local:DateToStringConverter x:Key="DateToStringConverter" />
-        
-        <DataTemplate x:Key="NewsItem">
+
+        <DataTemplate x:Key="NewsItem" x:DataType="local3:StoryHeader">
             <Button Command="{Binding DataContext.GoToNewsDetailsCommand, ElementName=NewsList}"
-                    CommandParameter="{Binding WebUrl}"
+                    CommandParameter="{Binding Id}"
                     BorderBrush="Gray"
                     BorderThickness="3"
                     Margin="5">
                     
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                   <StackPanel  x:Name="ItemPanel"
+                    <StackPanel  x:Name="ItemPanel"
                                 Orientation="Vertical" 
                                 MaxWidth="400" 
                                 MaxHeight="450">
-                    <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
+                        <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
                     <TextBlock Text="{Binding WebTitle}"
                                    TextWrapping="WrapWholeWords"
                                    FontSize="18"
@@ -43,14 +44,17 @@
                         <TextBlock Margin="5" 
                                    VerticalAlignment="Center"
                                    Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
-                            <Button Width="100" 
+                            <Button x:Name="ShareButton"
+                                    Width="100" 
                                     Margin="135 0 0 0"
                                     Height="30"
                                     FontFamily="Segoe MDL2 Assets" 
                                     Content="&#xE72D;" 
                                     HorizontalAlignment="Right"
                                     BorderThickness="2"
-                                    BorderBrush="DimGray"></Button>
+                                    BorderBrush="DimGray"
+                                    Command="{Binding DataContext.ShareCommand, ElementName=NewsList}"
+                                    CommandParameter="{x:Bind ShareObject }"></Button>
                     </StackPanel>
                 </StackPanel>
                 </ScrollViewer>

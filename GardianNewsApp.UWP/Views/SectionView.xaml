@@ -8,24 +8,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local2="using:GardianNewsApp.UWP.Controls"
     xmlns:local1="using:GardianNewsApp.UWP.Converters"
+    xmlns:local3="using:GardianNewsApp.Core.Models"
     mc:Ignorable="d"
-    Background="LightGray">
+    Background="LightGray"
+    SizeChanged="MvxWindowsPage_SizeChanged">
 
     <views:MvxWindowsPage.Resources>
         <local1:DateToStringConverter x:Key="DateToStringConverter" />
-
-        <DataTemplate x:Key="NewsItem">
+        <local1:HtmlToStringConverter x:Key="HtmlToStringConverter" />
+        <DataTemplate x:Key="NewsItem" x:DataType="local3:StoryHeader">
             <Button Command="{Binding DataContext.GoToNewsDetailsCommand, ElementName=NewsList}"
-                        CommandParameter="{Binding WebUrl}"
-                        BorderBrush="Gray"
-                        BorderThickness="3"
-                        Margin="5">
+                    CommandParameter="{Binding Id}"
+                    BorderBrush="Gray"
+                    BorderThickness="3"
+                    Margin="5">
 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <StackPanel  x:Name="ItemPanel"
-                                    Orientation="Vertical" 
-                                    MaxWidth="400" 
-                                    MaxHeight="450">
+                                Orientation="Vertical" 
+                                MaxWidth="400" 
+                                MaxHeight="450">
                         <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
                         <TextBlock Text="{Binding WebTitle}"
                                    TextWrapping="WrapWholeWords"
@@ -33,15 +35,37 @@
                                    FontStyle="Italic"
                                    FontWeight="Medium"
                                    Margin="5"/>
-                        <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText}"
+                        <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText, Converter={StaticResource HtmlToStringConverter}}"
                                    TextWrapping="WrapWholeWords"
                                    Margin="5"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Publish Date:" 
+                        <Grid  Padding="10 0 5 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal"
+                                                Grid.Column="0">
+                                <TextBlock Text="Publish Date:" 
                                    FontStyle="Italic"
-                                   Margin="5"/>
-                            <TextBlock Margin="5" Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
-                        </StackPanel>
+                                   VerticalAlignment="Center"
+                                    />
+                                <TextBlock Margin="5" 
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Selected.WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
+                            </StackPanel>
+
+                            <Button x:Name="ShareButton"
+                                    Grid.Column="1"
+                                    Width="120"                                   
+                                    Height="30"
+                                    FontFamily="Segoe MDL2 Assets" 
+                                    Content="&#xE72D;"                                    
+                                    HorizontalAlignment="Right"
+                                    BorderThickness="2"
+                                    BorderBrush="DimGray"
+                                    Command="{Binding DataContext.ShareCommand, ElementName=NewsList}"
+                                    CommandParameter="{Binding ShareObject }"></Button>
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </Button>
@@ -51,8 +75,8 @@
     
     
     <Grid>
-        <SplitView x:Name="splitView"
-                   DisplayMode="CompactOverlay" 
+        <SplitView x:Name="SplitView"
+                   DisplayMode="CompactInline" 
                    CompactPaneLength="48"
                    OpenPaneLength="200"
                    PaneBackground="Gray"

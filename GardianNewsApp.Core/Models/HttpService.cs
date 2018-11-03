@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +12,24 @@ namespace GardianNewsApp.Core.Models
 
     public class HttpService
     {
-  
-        public async Task<T> GetAsync<T>(string baseUrl, string endPoint, Dictionary<string, string> parameters)
+
+        public async Task<T> GetAsync<T>(string baseUrl, Dictionary<string, string> parameters)
         {
             using (var client = new HttpClient())
             {
-                var finalUrl = baseUrl + endPoint + GetParametersString(parameters);
+                var finalUrl = baseUrl + GetParametersString(parameters);
 
                 var response = await client.GetAsync(finalUrl);
-                response.EnsureSuccessStatusCode();
+                var result = response.StatusCode;
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    //response.EnsureSuccessStatusCode();
 
-                var resultJson = await response.Content.ReadAsStringAsync();
-                var resulObj= JsonConvert.DeserializeObject<T>(resultJson);
-                return resulObj;
+                    var resultJson = await response.Content.ReadAsStringAsync();
+                    var resulObj = JsonConvert.DeserializeObject<T>(resultJson);
+                    return resulObj;
+                }
+                else return default(T);
             }
         }
 

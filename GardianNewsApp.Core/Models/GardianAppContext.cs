@@ -43,7 +43,7 @@ namespace GardianNewsApp.Core.Models
             NewsCollection.Clear();
             SetAllNewsParametersDictionary();
 
-            var result= await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, Constants.END_POINT_SEARCH, _parametrs);
+            var result= await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL_SEARCH, _parametrs);
            
             var collection = result.SearchResponse.StoryHeaders;
             if (collection != null)
@@ -62,7 +62,7 @@ namespace GardianNewsApp.Core.Models
             NewsCollection.Clear();
             SetSectionsParametersDictionary(section);
 
-            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, Constants.END_POINT_SEARCH, _parametrs);
+            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL_SEARCH,  _parametrs);
 
             var collection = result.SearchResponse.StoryHeaders;
             if (collection != null)
@@ -78,10 +78,11 @@ namespace GardianNewsApp.Core.Models
         public async Task<StoryHeader> GetSingleItemAsync(string id)
         {
 
-            NewsCollection.Clear();
+            //NewsCollection.Clear();
             SetSingleItemParametersDictionary();
 
-            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, id, _parametrs);
+            var adress = Constants.BASE_API_URL + id;
+            var result = await _httpService.GetAsync<SearchResult>(adress, _parametrs);
             if(result!=null)
             {
                Selected = result.SearchResponse.StoryHeader;
@@ -106,7 +107,7 @@ namespace GardianNewsApp.Core.Models
         {
             _parametrs.Clear();
             _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
-            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS);
+            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS_All);
             _parametrs.Add(Constants.SHOW_ELEMENTS_PARAM, Constants.SHOW_ELEMENTS);
             _parametrs.Add(Constants.PAGE_SIZE_PARAM, Constants.PAGE_PARAM);
         }
@@ -114,18 +115,17 @@ namespace GardianNewsApp.Core.Models
         private void SetSectionsParametersDictionary(string section)
         {
             _parametrs.Clear();
-            _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
-            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS);
-            _parametrs.Add(Constants.SHOW_ELEMENTS_PARAM, Constants.SHOW_ELEMENTS);
-            _parametrs.Add(Constants.PAGE_SIZE_PARAM, Constants.PAGE_PARAM);
             _parametrs.Add("q", section);
+            _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
+            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS_All);
+            _parametrs.Add(Constants.SHOW_ELEMENTS_PARAM, Constants.SHOW_ELEMENTS);
         }
 
         private void SetSingleItemParametersDictionary()
         {
             _parametrs.Clear();
             _parametrs.Add(Constants.API_KEY_PARAM, Constants.API_KEY);
-            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS_ALL);
+            _parametrs.Add(Constants.SHOW_FIELDS_PARAM, Constants.SHOW_FIELDS_All);
         }
     }
 }

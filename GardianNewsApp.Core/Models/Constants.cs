@@ -3,15 +3,14 @@
     public class Constants
     {
         public const string BASE_API_URL = "https://content.guardianapis.com/";
-        public const string END_POINT_SEARCH = "search";
-        public const string END_POINT_SECTION = "section";
+        public const string BASE_API_URL_SEARCH = "https://content.guardianapis.com/search";
 
         public const string API_KEY_PARAM = "api-key";
         public const string API_KEY = "6e094816-d879-46d7-ae1b-a8c0ad2aa647";
 
         public const string SHOW_FIELDS_PARAM = "show-fields";
-        public const string SHOW_FIELDS = "thumbnail,trailText";
-        public const string SHOW_FIELDS_ALL = "all";
+        public const string SHOW_FIELDS = "thumbnail,trailText,textBody";
+        public const string SHOW_FIELDS_All = "all";
 
         public const string SHOW_ELEMENTS_PARAM = "show-elements";
         public const string SHOW_ELEMENTS = "image";
@@ -21,8 +20,6 @@
 
         public const string PAGE_SIZE_PARAM = "page-size";
         public const string PAGE_PARAM = "20";
-
-      
 
     }
 }

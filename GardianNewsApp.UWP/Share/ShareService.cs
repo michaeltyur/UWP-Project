@@ -30,6 +30,7 @@ namespace GardianNewsApp.UWP.Share
         {
             if (!string.IsNullOrEmpty(_url))
             {
+             
                 args.Request.Data.SetText($"[Shared Article] {_articleTitle}");
                 args.Request.Data.SetWebLink(new Uri(_url));
 

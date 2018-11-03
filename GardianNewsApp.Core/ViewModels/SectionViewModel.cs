@@ -24,6 +24,7 @@ namespace GardianNewsApp.Core.ViewModels
         public GoToNewsDetailsCommand GoToNewsDetailsCommand { get; set; }
         public IMvxCommand NavMenuTriggerCommand { get; set; }
         public NavCommand NavCommand { get; set; }
+        public ShareCommand ShareCommand { get; set; }
 
         public string PageTitle { get; set; }
         private bool isPaneOpen;
@@ -60,6 +61,8 @@ namespace GardianNewsApp.Core.ViewModels
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
             NavCommand = new NavCommand(navigationService);
+            ShareCommand = new ShareCommand();
+
             PageTitle = Mvx.IoCProvider.GetSingleton<GardianAppContext>().Settings.PageSettings;
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
@@ -71,11 +74,6 @@ namespace GardianNewsApp.Core.ViewModels
         }
         public override void Prepare(string parameter)
         {
-            PageTitle = parameter;
-
-            var appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
-            appContext.Settings = new AppSettings(PageTitle, string.Empty);
-            appContext.SaveSettings(appContext.Settings);
         }
 
         public override async Task Initialize()

@@ -75,7 +75,7 @@ namespace GardianNewsApp.Core.ViewModels
             ShareCommand = new ShareCommand();
 
             PageTitle = "All News";
-
+            IsPaneOpen = true;
             NewsCollection = new ObservableCollection<StoryHeader>();
             SetNewsCollectionAsync();
             ProgressRingIsActive = true;

@@ -1,4 +1,6 @@
 ﻿using MvvmCross.Platforms.Uap.Views;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -12,6 +14,16 @@ namespace GardianNewsApp.UWP.Views
         public SectionView()
         {
             this.InitializeComponent();
+        }
+        private void MvxWindowsPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var size = ((Frame)Window.Current.Content).ActualWidth;
+            if (size < 645)
+            {
+                SplitView.IsPaneOpen = false;
+            }
+            else SplitView.IsPaneOpen = true; ;
+
         }
     }
 }

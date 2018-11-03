@@ -16,9 +16,9 @@ namespace GardianNewsApp.Core.ViewModels
    public class DetailsViewModel : MvxViewModel<string>, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-
-        //Commands
         public IMvxCommand NavMenuTriggerCommand { get; set; }
+        //Commands
+        private IMvxNavigationService _navigationService;
         public NavCommand NavCommand { get; set; }
         public ShareCommand ShareCommand { get; set; }
 
@@ -54,13 +54,23 @@ namespace GardianNewsApp.Core.ViewModels
         public bool ProgressRingVisibility
         {
             get { return progressRingVisibility; }
-            set { progressRingVisibility = value; OnPropertyChanged(); }
+            set {
+                   progressRingVisibility = value;
+                   ItemBoxVisibility = !progressRingVisibility;
+                   OnPropertyChanged(); }
+        }
+
+        public bool itemBoxVisibility;
+        public bool ItemBoxVisibility
+        {
+            get { return itemBoxVisibility; }
+            set { itemBoxVisibility = value; OnPropertyChanged(); }
         }
         #endregion
 
         public DetailsViewModel(IMvxNavigationService navigationService)
         {
-
+            _navigationService = navigationService;
             // receive and store the parameter here
             appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
             //appContext.SaveSettings(appContext.Settings);
@@ -72,7 +82,6 @@ namespace GardianNewsApp.Core.ViewModels
             //Ring
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
-
             PageTitle = "Details";
 
             InitializeSelectedItem();
@@ -84,8 +93,12 @@ namespace GardianNewsApp.Core.ViewModels
             if (!string.IsNullOrEmpty(_parameter))
             {
               Selected = await appContext.GetSingleItemAsync(_parameter);
-
-              ProgressRingIsActive = false;
+                if (Selected == null)
+                {
+                    await _navigationService.Navigate<HomeViewModel>();
+                    return;
+                }
+               ProgressRingIsActive = false;
               ProgressRingVisibility = false;
             }
         }

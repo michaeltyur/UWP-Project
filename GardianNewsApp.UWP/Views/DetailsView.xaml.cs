@@ -28,5 +28,15 @@ namespace GardianNewsApp.UWP.Views
         {
             this.InitializeComponent();
         }
+        private void MvxWindowsPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var size = ((Frame)Window.Current.Content).ActualWidth;
+            if (size < 645)
+            {
+                SplitView.IsPaneOpen = false;
+            }
+            else SplitView.IsPaneOpen = true; ;
+
+        }
     }
 }

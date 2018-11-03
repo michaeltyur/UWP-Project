@@ -104,11 +104,11 @@
                             BorderThickness="0 0 0 0"
                             HorizontalContentAlignment="Left"
                             Command="{Binding NavCommand}"
-                            CommandParameter="Australia-News">
+                            CommandParameter="World">
             <StackPanel Orientation="Horizontal">
                 <SymbolIcon Symbol="World"
-                                        Tag="australia news" />
-                <TextBlock Margin="40 0 0 0">Australia news</TextBlock>
+                                        Tag="World" />
+                <TextBlock Margin="40 0 0 0">World</TextBlock>
             </StackPanel>
         </Button>
         <Button Background="Transparent"

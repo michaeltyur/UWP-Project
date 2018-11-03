@@ -1,5 +1,6 @@
 ﻿using GardianNewsApp.Core.Models;
 using GardianNewsApp.Core.ViewModels;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using System;
@@ -34,15 +35,18 @@ namespace GardianNewsApp.Core.Commands
 
         public void Execute(object parameter)
         {
-            var endpoint = (string)parameter;
+            var section = (string)parameter;
 
-            switch (endpoint)
+            switch (section)
             {
                 case "All News":
                     _navigationService.Navigate<HomeViewModel>();
                     break;
                 default:
-                    _navigationService.Navigate<SectionViewModel, string>(endpoint);
+                    {
+                        Mvx.IoCProvider.GetSingleton<GardianAppContext>().Settings = new AppSettings(section, "");
+                        _navigationService.Navigate<SectionViewModel, string>(section);
+                    }
                     break;
             }
         }

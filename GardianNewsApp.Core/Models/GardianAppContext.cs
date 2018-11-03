@@ -79,12 +79,12 @@ namespace GardianNewsApp.Core.Models
         {
 
             NewsCollection.Clear();
-            SetSectionsParametersDictionary(id);
+            SetSingleItemParametersDictionary();
 
             var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL, id, _parametrs);
             if(result!=null)
             {
-               Selected = result.SearchResponse.StoryHeaders[0];
+               Selected = result.SearchResponse.StoryHeader;
             }
 
            return  Selected;

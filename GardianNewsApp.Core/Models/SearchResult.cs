@@ -7,6 +7,8 @@ namespace GardianNewsApp.Core.Models
     {
         [JsonProperty(PropertyName = "response")]
         public SearchResponse SearchResponse { get; set; }
+
+       
     }
 
 }

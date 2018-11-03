@@ -21,7 +21,8 @@ namespace GardianNewsApp.Core.Models
                 response.EnsureSuccessStatusCode();
 
                 var resultJson = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(resultJson);
+                var resulObj= JsonConvert.DeserializeObject<T>(resultJson);
+                return resulObj;
             }
         }
 

@@ -46,44 +46,68 @@
                     </Border>
 
                     <local2:RingProgress Grid.Row="1"></local2:RingProgress>
-                    
-                    <StackPanel  x:Name="ItemPanel"
+
+                    <ScrollViewer Grid.Row="1"
+                                  Margin="0 20 0 20">
+                         <Border Grid.Row="1"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            BorderThickness="3"
+                            BorderBrush="DimGray"
+                            Padding="5">
+                        <StackPanel  x:Name="ItemPanel"
                                  Grid.Row="1"
                                  Orientation="Vertical" 
-                                 MaxWidth="400" 
-                                 MaxHeight="450"
+                                 MaxWidth="700"                                
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center">
-                        <TextBlock Text="{Binding WebTitle}"
+                            
+                                <Border BorderBrush="DimGray" 
+                                        BorderThickness="0 0 0 2"
+                                        Margin="0 0 0 10">
+                                    <TextBlock Text="{Binding Selected.WebTitle}"
                                    TextWrapping="WrapWholeWords"
-                                   FontSize="18"
-                                   FontStyle="Italic"
+                                   FontSize="22"
                                    FontWeight="Medium"
                                    Margin="5"/>
-                        <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
-                        <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText}"
+                                </Border>
+                        
+                            
+                                <Image Source="{Binding Selected.StoryHeaderAdditionalFields.Thumbnail}"/>
+
+                                <TextBlock Text="{Binding Selected.StoryHeaderAdditionalFields.TrailText}"
                                    TextWrapping="WrapWholeWords"
-                                   Margin="5"/>
+                                   Margin="5"
+                                   FontStyle="Italic"
+                                   FontSize="20"/>
+                            <TextBlock Text="{Binding Selected.StoryHeaderAdditionalFields.BodyText}" 
+                                       FontStyle="Normal"
+                                       TextWrapping="WrapWholeWords"
+                                   VerticalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Publish Date:" 
                                    FontStyle="Italic"
                                    VerticalAlignment="Center"/>
                             <TextBlock Margin="5" 
                                    VerticalAlignment="Center"
-                                   Text="{Binding WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
+                                   Text="{Binding Selected.WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
                             <Button x:Name="ShareButton"
-                                    Width="100" 
-                                    Margin="135 0 0 0"
-                                    Height="30"
+                                    Width="120" 
+                                    Margin="410 0 0 0"
+                                    Height="50"
                                     FontFamily="Segoe MDL2 Assets" 
                                     Content="&#xE72D;" 
                                     HorizontalAlignment="Right"
                                     BorderThickness="2"
                                     BorderBrush="DimGray"
                                     Command="{Binding ShareCommand}"
-                                    CommandParameter="{Binding ShareObject }"></Button>
+                                    CommandParameter="{Binding Selected.ShareObject }"></Button>
                         </StackPanel>
                     </StackPanel>
+                    </Border>
+                    </ScrollViewer>
+                   
+                    
 
                 </Grid>
             </SplitView.Content>

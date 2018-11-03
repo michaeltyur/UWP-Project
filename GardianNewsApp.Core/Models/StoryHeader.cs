@@ -12,8 +12,10 @@ namespace GardianNewsApp.Core.Models
 
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
-        //[JsonProperty(PropertyName = "type")]
-        //public string Type { get; set; }
+
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
+
         [JsonProperty(PropertyName = "sectionId")]
         public string SectionId { get; set; }
 
@@ -37,12 +39,18 @@ namespace GardianNewsApp.Core.Models
 
          public ShareObject ShareObject
         {
-            get { return new ShareObject { Url = WebUrl,Title= WebTitle }; }
-            set { }
+            get { return new ShareObject { Url = WebUrl, Title= WebTitle }; }
         }
 
         [JsonProperty(PropertyName = "blocks")]
         public Blocks Blocks { get; set; }
+
+        [JsonProperty(PropertyName = "pillarName")]
+        public string PillarName
+        {
+            get;
+            set;
+        }
 
     }
 }

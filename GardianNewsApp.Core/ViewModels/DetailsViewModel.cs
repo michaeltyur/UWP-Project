@@ -16,17 +16,23 @@ namespace GardianNewsApp.Core.ViewModels
    public class DetailsViewModel : MvxViewModel<string>, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        //Commands
         public IMvxCommand NavMenuTriggerCommand { get; set; }
         public NavCommand NavCommand { get; set; }
         public ShareCommand ShareCommand { get; set; }
 
         private GardianAppContext appContext;
 
+        //Selected Article
         private StoryHeader selected;
         public StoryHeader Selected
         {
             get { return selected; }
-            set { selected = value;OnPropertyChanged(); }
+            set {
+                  selected = value;
+                  OnPropertyChanged();
+                }
         }
 
         public string PageTitle { get; set; }
@@ -37,7 +43,7 @@ namespace GardianNewsApp.Core.ViewModels
             set { isPaneOpen = value; OnPropertyChanged(); }
         }
 
-        //Progress Ring
+        #region Progress Ring
         private bool progressRingIsActive;
         public bool ProgressRingIsActive
         {
@@ -50,31 +56,38 @@ namespace GardianNewsApp.Core.ViewModels
             get { return progressRingVisibility; }
             set { progressRingVisibility = value; OnPropertyChanged(); }
         }
+        #endregion
 
         public DetailsViewModel(IMvxNavigationService navigationService)
         {
 
             // receive and store the parameter here
             appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
-            appContext.SaveSettings(appContext.Settings);
+            //appContext.SaveSettings(appContext.Settings);
 
             //Commands
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
             NavCommand = new NavCommand(navigationService);
             ShareCommand = new ShareCommand();
+            //Ring
+            ProgressRingIsActive = true;
+            ProgressRingVisibility = true;
 
             PageTitle = "Details";
 
-
+            InitializeSelectedItem();
         }
 
         private async void InitializeSelectedItem()
         {
             var _parameter = appContext.Settings.IdSettings;
-            Selected = await appContext.GetSingleItemAsync(_parameter);
+            if (!string.IsNullOrEmpty(_parameter))
+            {
+              Selected = await appContext.GetSingleItemAsync(_parameter);
 
-            ProgressRingIsActive = false;
-            ProgressRingVisibility = false;
+              ProgressRingIsActive = false;
+              ProgressRingVisibility = false;
+            }
         }
 
         public override void Prepare(string parameter)
@@ -82,6 +95,7 @@ namespace GardianNewsApp.Core.ViewModels
             var appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
             appContext.Settings = new AppSettings(PageTitle, parameter);
             appContext.SaveSettings(appContext.Settings);
+            InitializeSelectedItem();
         }
 
         private void NavPanelTrigger()

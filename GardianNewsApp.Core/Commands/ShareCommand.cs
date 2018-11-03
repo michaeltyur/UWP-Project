@@ -19,7 +19,8 @@ namespace GardianNewsApp.Core.Commands
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            
+            return parameter!=null;
         }
 
         public void Execute()

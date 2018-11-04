@@ -48,6 +48,8 @@ namespace GardianNewsApp.UWP
         {
             Mvx.IoCProvider.RegisterSingleton<ISettings>(new SettingsService());
             Mvx.IoCProvider.RegisterSingleton<IShare>(new ShareService());
+           
+
             base.InitializeFirstChance();
                 
         }

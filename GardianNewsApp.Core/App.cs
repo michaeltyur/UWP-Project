@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using Windows.UI.Xaml.Controls;
 
 namespace GardianNewsApp.Core
 {

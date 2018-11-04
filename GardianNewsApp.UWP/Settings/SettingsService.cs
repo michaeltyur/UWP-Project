@@ -43,7 +43,7 @@ namespace GardianNewsApp.UWP.Settings
             }
             catch (Exception ex)
             {
-                throw new Exception();
+                return null;
             }
         }
 

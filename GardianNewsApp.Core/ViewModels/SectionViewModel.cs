@@ -67,6 +67,9 @@ namespace GardianNewsApp.Core.ViewModels
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
             InitializeSectionNewsCollection();
+
+            //Save settings
+
         }
         private void NavPanelTrigger()
         {

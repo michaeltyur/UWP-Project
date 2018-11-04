@@ -23,7 +23,7 @@ namespace GardianNewsApp.UWP.Converters
 
         public static string StripTagsRegex(string source)
         {
-            return Regex.Replace(source, "<.*?>", string.Empty);
+            return Regex.Replace(source, "<.*?>|", string.Empty);
         }
     }
 }

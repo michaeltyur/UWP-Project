@@ -5,73 +5,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GardianNewsApp.UWP.Converters"
     xmlns:local2="using:GardianNewsApp.UWP.Controls"
+    xmlns:local22="using:GardianNewsApp.UWP.Dictionaries"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local3="using:GardianNewsApp.Core.Models"
     mc:Ignorable="d"
     Background="LightGray"
     SizeChanged="MvxWindowsPage_SizeChanged">
-    
-    <views:MvxWindowsPage.Resources>
-        
-        <local:DateToStringConverter x:Key="DateToStringConverter" />
-        <local:HtmlToStringConverter x:Key="HtmlToStringConverter" />
-        
-        <DataTemplate x:Key="NewsItem" x:DataType="local3:StoryHeader">
-            <Button Command="{Binding DataContext.GoToNewsDetailsCommand, ElementName=NewsList}"
-                    CommandParameter="{Binding Id}"
-                    BorderBrush="Gray"
-                    BorderThickness="3"
-                    Margin="5">
-                    
-                <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                    <StackPanel  x:Name="ItemPanel"
-                                Orientation="Vertical" 
-                                MaxWidth="400" 
-                                MaxHeight="450">
-                        <Image Source="{Binding StoryHeaderAdditionalFields.Thumbnail}"></Image>
-                    <TextBlock Text="{Binding WebTitle}"
-                                   TextWrapping="WrapWholeWords"
-                                   FontSize="18"
-                                   FontStyle="Italic"
-                                   FontWeight="Medium"
-                                   Margin="5"/>
-                        <TextBlock Text="{Binding StoryHeaderAdditionalFields.TrailText, Converter={StaticResource HtmlToStringConverter}}"
-                                   TextWrapping="WrapWholeWords"
-                                   Margin="5"/>
-                        <Grid  Padding="10 0 5 5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Orientation="Horizontal"
-                                                Grid.Column="0">
-                                <TextBlock Text="Publish Date:" 
-                                   FontStyle="Italic"
-                                   VerticalAlignment="Center"
-                                    />
-                                <TextBlock Margin="5" 
-                                   VerticalAlignment="Center"
-                                   Text="{Binding Selected.WebPublicationDate.Date, Converter={StaticResource DateToStringConverter}}"/>
-                            </StackPanel>
 
-                            <Button x:Name="ShareButton"
-                                    Grid.Column="1"
-                                    Width="120"                                   
-                                    Height="30"
-                                    FontFamily="Segoe MDL2 Assets" 
-                                    Content="&#xE72D;"                                    
-                                    HorizontalAlignment="Right"
-                                    BorderThickness="2"
-                                    BorderBrush="DimGray"
-                                    Command="{Binding DataContext.ShareCommand, ElementName=NewsList}"
-                                    CommandParameter="{Binding ShareObject }"></Button>
-                        </Grid>
-                    </StackPanel>
-                </ScrollViewer>
-            </Button>
-        </DataTemplate>
-        
+    <views:MvxWindowsPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </views:MvxWindowsPage.Resources>
 
     <Grid>
@@ -109,8 +56,7 @@
                     <ScrollViewer Grid.Row="1">
                         <GridView x:Name ="NewsList"                   
                                   Background="LightGray" 
-                                  SelectionMode="Single"     
-                                  SelectedItem="{Binding SelectedItem}"
+                                  SelectionMode="Single"                        
                                   ItemsSource="{Binding NewsCollection}"
                                   VerticalContentAlignment="Top"
                                   ItemTemplate="{StaticResource NewsItem}"

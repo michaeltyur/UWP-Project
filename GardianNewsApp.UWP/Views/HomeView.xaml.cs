@@ -1,13 +1,18 @@
-﻿using GardianNewsApp.Core.Models;
+﻿using GardianNewsApp.Core.Interfaces;
+using GardianNewsApp.Core.Models;
 using GardianNewsApp.UWP.Settings;
+using GardianNewsApp.UWP.Tiles;
+using MvvmCross;
 using MvvmCross.Platforms.Uap.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,9 +34,9 @@ namespace GardianNewsApp.UWP.Views
         public HomeView()
         {
             this.InitializeComponent();
-         
+            Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync("HomeView", "KJHHH");
         }
-
+        
         private void MvxWindowsPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var size = ((Frame)Window.Current.Content).ActualWidth;

@@ -4,8 +4,9 @@ using System.Text;
 
 namespace GardianNewsApp.Core.Interfaces
 {
-    public class ITileProvider
+    public interface ITileProvider
     {
-
+         
+         void CreateSecondaryTileAsync(string articleTitle, string trailText);
     }
 }

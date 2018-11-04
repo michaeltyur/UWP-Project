@@ -12,8 +12,11 @@
     SizeChanged="MvxWindowsPage_SizeChanged">
 
     <views:MvxWindowsPage.Resources>
-        <local:DateToStringConverter x:Key="DateToStringConverter" />
-        <local:HtmlToStringConverter x:Key="HtmlToStringConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Dictionaries/Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </views:MvxWindowsPage.Resources>
 
     <Grid>

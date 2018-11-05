@@ -8,6 +8,6 @@ namespace GardianNewsApp.Core.Interfaces
     public interface ITileProvider
     {
          
-         void CreateSecondaryTileAsync(string secondTile);
+         void TileUpdater(string category, string content);
     }
 }

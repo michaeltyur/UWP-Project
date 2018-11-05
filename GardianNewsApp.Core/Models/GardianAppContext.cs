@@ -110,10 +110,12 @@ namespace GardianNewsApp.Core.Models
 
         public void CreateSecondaryTileAsync()
         {
+            var tileProvider = Mvx.IoCProvider.GetSingleton<ITileProvider>();
             SecondTile secondTile = new SecondTile();
-            if (NewsCollection.Count > 0) Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync(NewsCollection[0].WebTitle);
-          //  if (NewsCollection.Count > 1) Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync(NewsCollection[1].WebTitle);
-          //  if (NewsCollection.Count > 2) Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync(NewsCollection[2].WebTitle);
+            if (NewsCollection.Count > 0)
+            {
+                tileProvider.TileUpdater(NewsCollection[0].SectionName, NewsCollection[0].WebTitle);
+            }
         }
 
         public async Task<AppSettings> LoadSettings()

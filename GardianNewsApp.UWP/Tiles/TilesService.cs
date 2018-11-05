@@ -13,17 +13,16 @@ namespace GardianNewsApp.UWP.Tiles
 {
     public class TilesService : ITileProvider
     {
-        public TilesService()
+        private string _secondTileId = "guardianSecondTile";
+        private TileContent _firstTile;
+
+        private async Task CreateSecondaryTileAsync(string category, string content)
         {
-            CreatFirstTile();
-        }
-        public async void CreateSecondaryTileAsync(string secondTile)
-        {
-            var tiles = await SecondaryTile.FindAllAsync();
+            // var tiles = await SecondaryTile.FindAllAsync();
             // Construct a unique tile ID, which you will need to use later for updating the tile
-            string tileId = "guardianTile";
+            string tileId = _secondTileId;
             // Use a display name you like
-            string displayName = secondTile;
+            string displayName = content;
 
 
             // Provide all the required info in arguments so that when user
@@ -43,31 +42,38 @@ namespace GardianNewsApp.UWP.Tiles
             tile.VisualElements.ShowNameOnSquare150x150Logo = true;
             tile.VisualElements.ShowNameOnWide310x150Logo = true;
             tile.VisualElements.ShowNameOnSquare310x310Logo = true;
-
-
-            if (SecondaryTile.Exists(tileId))
-                await tile.UpdateAsync();
-            else await tile.RequestCreateAsync();
-            // Initialize a secondary tile with the same tile ID you want removed
-            //SecondaryTile toBeDeleted = new SecondaryTile(tileId);
-
-            // And then unpin the tile
-            //await toBeDeleted.RequestDeleteAsync();
+            if (!SecondaryTile.Exists(_secondTileId))
+            {
+                await tile.RequestCreateAsync();
+            }
+            await tile.UpdateAsync();
         }
 
-        public void CreatFirstTile()
+        private void CreatFirstTile(string category,string content)
         {
-            // In a real app, these would be initialized with actual data
-            string from = "Jennifer Parker";
-            string subject = "Photos from our trip";
-            string body = "Check out these awesome photos I took while in New Zealand!";
-
-
-            // Construct the tile content
-            TileContent content = new TileContent()
+            _firstTile = new TileContent()
             {
                 Visual = new TileVisual()
                 {
+                    Branding = TileBranding.Name,
+                    DisplayName = "News",
+                    TileSmall = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                {
+                    new AdaptiveText()
+                    {
+                        Text = "GApp"
+                    },
+                    new AdaptiveText()
+                    {
+                        Text = content
+                    }
+                }
+                        }
+                    },
                     TileMedium = new TileBinding()
                     {
                         Content = new TileBindingContentAdaptive()
@@ -76,52 +82,97 @@ namespace GardianNewsApp.UWP.Tiles
                 {
                     new AdaptiveText()
                     {
-                        Text = from
+                        Text = "GY News",
+                        HintStyle = AdaptiveTextStyle.Subtitle
                     },
-
                     new AdaptiveText()
                     {
-                        Text = subject,
+                        Text = category,
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     },
-
                     new AdaptiveText()
                     {
-                        Text = body,
-                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                        Text = content,
+                        HintWrap = true
                     }
                 }
                         }
                     },
-
                     TileWide = new TileBinding()
                     {
                         Content = new TileBindingContentAdaptive()
                         {
                             Children =
-                                      {
+                {
                     new AdaptiveText()
                     {
-                        Text = from,
+                        Text = category,
                         HintStyle = AdaptiveTextStyle.Subtitle
                     },
-
                     new AdaptiveText()
                     {
-                        Text = subject,
+                        Text = content,
+                        HintWrap = true
+                    }
+                },
+                            BackgroundImage = new TileBackgroundImage()
+                            {
+                                Source = "Assets/Square150x150Logo.scale-100.png"
+                            }
+                        }
+                    },
+                    TileLarge = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                {
+                    new AdaptiveText()
+                    {
+                        Text = "Guardian News",
+                        HintStyle = AdaptiveTextStyle.Subtitle
+                    },
+                    new AdaptiveText()
+                    {
+                        Text = category,
                         HintStyle = AdaptiveTextStyle.CaptionSubtle
                     },
-
                     new AdaptiveText()
                     {
-                        Text = body,
-                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                        Text = content,
+                        HintWrap = true
                     }
-                         }
+                }
                         }
                     }
                 }
             };
+
+        }
+
+        public void TileUpdater(string category, string content)
+        {
+            CreatFirstTile(category, content);
+            CreateSecondaryTileAsync(category, content);
+
+            // Create the tile notification
+            var tileNotif = new TileNotification(_firstTile.GetXml())
+            {
+                ExpirationTime = DateTimeOffset.UtcNow.AddMinutes(10)
+            };
+
+            // And send the notification to the primary tile
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotif);
+
+            // If the secondary tile is pinned
+        //    if (SecondaryTile.Exists(_secondTileId))
+        //    {
+        //        // Get its updater
+        //        var updater = TileUpdateManager.CreateTileUpdaterForSecondaryTile(_secondTileId);
+
+        //        // And send the notification
+        //        updater.Update(tileNotif);
+        //    }
         }
     }
 }

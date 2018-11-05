@@ -14,7 +14,6 @@ using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using Windows.UI.Xaml;
 
 namespace GardianNewsApp.Core.Models
 {

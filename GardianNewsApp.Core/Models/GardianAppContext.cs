@@ -109,11 +109,14 @@ namespace GardianNewsApp.Core.Models
 
         public void CreateSecondaryTileAsync()
         {
+            Random random = new Random();
+            var randomNews = random.Next(NewsCollection.Count);
             var tileProvider = Mvx.IoCProvider.GetSingleton<ITileProvider>();
             SecondTile secondTile = new SecondTile();
             if (NewsCollection.Count > 0)
             {
-                tileProvider.TileUpdater(NewsCollection[0].SectionName, NewsCollection[0].WebTitle);
+                tileProvider.TileUpdater(NewsCollection[randomNews].SectionName, 
+                                         NewsCollection[randomNews].WebTitle);
             }
         }
 

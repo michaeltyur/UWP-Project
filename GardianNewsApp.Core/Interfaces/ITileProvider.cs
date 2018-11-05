@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GardianNewsApp.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +8,6 @@ namespace GardianNewsApp.Core.Interfaces
     public interface ITileProvider
     {
          
-         void CreateSecondaryTileAsync(string articleTitle, string trailText);
+         void CreateSecondaryTileAsync(string secondTile);
     }
 }

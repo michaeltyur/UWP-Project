@@ -13,8 +13,7 @@
                     BorderBrush="Gray"
                     BorderThickness="3"
                     Margin="5"
-                    Padding="0 0 0 0"
-                >
+                    Padding="0 0 0 0">
 
             <Grid x:Name="ItemPanel" 
                   Width="390"                               

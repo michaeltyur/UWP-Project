@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GardianNewsApp.Core.Commands;
@@ -13,6 +14,7 @@ using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
+using Windows.UI.Xaml;
 
 namespace GardianNewsApp.Core.Models
 {
@@ -36,24 +38,27 @@ namespace GardianNewsApp.Core.Models
 
             NewsCollection = new ObservableCollection<StoryHeader>();
         }
-
         public async Task<ObservableCollection<StoryHeader>> GetAllNewsAsync()
         {
-            
+
             NewsCollection.Clear();
             SetAllNewsParametersDictionary();
 
-            var result= await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL_SEARCH, _parametrs);
-           
-            var collection = result.SearchResponse.StoryHeaders;
-            if (collection != null)
+            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL_SEARCH, _parametrs);
+            if (result != null)
             {
-                foreach (var item in collection)
+                var collection = result.SearchResponse.StoryHeaders;
+                if (collection != null)
                 {
-                    NewsCollection.Add(item);
+                    foreach (var item in collection)
+                    {
+                        NewsCollection.Add(item);
+                    }
                 }
+                return NewsCollection;
+
             }
-            return NewsCollection;
+            else return null;
         }
 
         public async Task<ObservableCollection<StoryHeader>> GetSectionAsync(string section)
@@ -62,39 +67,53 @@ namespace GardianNewsApp.Core.Models
             NewsCollection.Clear();
             SetSectionsParametersDictionary(section);
 
-            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL_SEARCH,  _parametrs);
-
-            var collection = result.SearchResponse.StoryHeaders;
-            if (collection != null)
+            var result = await _httpService.GetAsync<SearchResult>(Constants.BASE_API_URL_SEARCH, _parametrs);
+            if (result != null)
             {
-                foreach (var item in collection)
+                var collection = result.SearchResponse.StoryHeaders;
+                if (collection != null)
                 {
-                    NewsCollection.Add(item);
+                    foreach (var item in collection)
+                    {
+                        NewsCollection.Add(item);
+                    }
                 }
+                return NewsCollection;
             }
-            return NewsCollection;
+            else return null;
         }
 
         public async Task<StoryHeader> GetSingleItemAsync(string id)
         {
-
-            //NewsCollection.Clear();
             SetSingleItemParametersDictionary();
 
             var adress = Constants.BASE_API_URL + id;
             var result = await _httpService.GetAsync<SearchResult>(adress, _parametrs);
-            if(result!=null)
+            if (result != null)
             {
-               Selected = result.SearchResponse.StoryHeader;
+                Selected = result.SearchResponse.StoryHeader;
             }
 
-           return  Selected;
+            return Selected;
         }
 
+        
+        /// <summary>
+        /// Saves Current Page for furthered start
+        /// </summary>
+        /// <param name="settings">current page name string</param>
         public void SaveSettings(AppSettings settings)
         {
             var settingsProvider = Mvx.IoCProvider.GetSingleton<ISettings>();
             settingsProvider.SaveSettings(settings);
+        }
+
+        public void CreateSecondaryTileAsync()
+        {
+            SecondTile secondTile = new SecondTile();
+            if (NewsCollection.Count > 0) Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync(NewsCollection[0].WebTitle);
+          //  if (NewsCollection.Count > 1) Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync(NewsCollection[1].WebTitle);
+          //  if (NewsCollection.Count > 2) Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync(NewsCollection[2].WebTitle);
         }
 
         public async Task<AppSettings> LoadSettings()

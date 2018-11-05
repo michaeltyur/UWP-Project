@@ -34,7 +34,6 @@ namespace GardianNewsApp.UWP.Views
         public HomeView()
         {
             this.InitializeComponent();
-            Mvx.IoCProvider.GetSingleton<ITileProvider>().CreateSecondaryTileAsync("HomeView", "KJHHH");
         }
         
         private void MvxWindowsPage_SizeChanged(object sender, SizeChangedEventArgs e)

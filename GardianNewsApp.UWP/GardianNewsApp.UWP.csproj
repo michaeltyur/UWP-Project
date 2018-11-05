@@ -111,6 +111,9 @@
     <Compile Include="Views\DetailsView.xaml.cs">
       <DependentUpon>DetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ErrorView.xaml.cs">
+      <DependentUpon>ErrorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPageView.xaml.cs">
       <DependentUpon>MainPageView.xaml</DependentUpon>
     </Compile>
@@ -129,7 +132,9 @@
     <None Include="GardianNewsApp.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\ButtonIcons\justplay.png" />
+    <Content Include="Assets\ErrorImage\2X4gidH.gif" />
+    <Content Include="Assets\ErrorImage\caveman_6.gif" />
+    <Content Include="Assets\ErrorImage\nointernet.png" />
     <Content Include="Assets\Gardian150x150.jpg" />
     <Content Include="Assets\Guardian44x44.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -206,6 +211,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

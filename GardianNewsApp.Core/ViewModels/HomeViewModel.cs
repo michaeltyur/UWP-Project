@@ -22,7 +22,6 @@ namespace GardianNewsApp.Core.ViewModels
         public IMvxCommand NavMenuTriggerCommand { get; set; }
         public NavCommand NavCommand { get; set; }
         public ShareCommand ShareCommand { get; set; }
-        //public IMvxCommand ItemDetailsCommand { get; set; }
 
         //Binding proprietes
         public string PageTitle { get; set; }
@@ -43,7 +42,6 @@ namespace GardianNewsApp.Core.ViewModels
             get { return newsCollection; }
             set { newsCollection = value;OnPropertyChanged(); }
         }
-
 
         private GardianAppContext appContext;
 
@@ -78,6 +76,9 @@ namespace GardianNewsApp.Core.ViewModels
             IsPaneOpen = true;
             NewsCollection = new ObservableCollection<StoryHeader>();
             SetNewsCollectionAsync();
+
+            appContext.CreateSecondaryTileAsync();
+
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
         }
@@ -87,9 +88,13 @@ namespace GardianNewsApp.Core.ViewModels
         }
         private async void SetNewsCollectionAsync()
         {
-             NewsCollection = await appContext.GetAllNewsAsync();
-             ProgressRingIsActive = false;
-             ProgressRingVisibility = false;     
+            var result=await appContext.GetAllNewsAsync();
+            if (result == null) return;
+
+            NewsCollection = result;
+            appContext.CreateSecondaryTileAsync();
+            ProgressRingIsActive = false;
+            ProgressRingVisibility = false;     
         }
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

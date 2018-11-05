@@ -68,25 +68,31 @@ namespace GardianNewsApp.Core.ViewModels
         }
         #endregion
 
-        public DetailsViewModel(IMvxNavigationService navigationService)
+        public DetailsViewModel(IMvxNavigationService navigationService, 
+                                GardianAppContext appContext, 
+                                NavCommand navCommand,
+                                ShareCommand shareCommand)
         {
             _navigationService = navigationService;
-            // receive and store the parameter here
-            appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
-            //appContext.SaveSettings(appContext.Settings);
+
+            this.appContext = appContext;
 
             //Commands
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
-            NavCommand = new NavCommand(navigationService);
-            ShareCommand = new ShareCommand();
+            NavCommand = navCommand;
+            ShareCommand = shareCommand;
             //Ring
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
             PageTitle = "Details";
-
-            InitializeSelectedItem();
+         
         }
-
+        public override async Task Initialize()
+        {
+            InitializeSelectedItem();
+           
+            await base.Initialize();
+        }
         private async void InitializeSelectedItem()
         {
             var _parameter = appContext.Settings.IdSettings;
@@ -99,13 +105,12 @@ namespace GardianNewsApp.Core.ViewModels
                     return;
                 }
                ProgressRingIsActive = false;
-              ProgressRingVisibility = false;
+               ProgressRingVisibility = false;
             }
         }
 
         public override void Prepare(string parameter)
         {
-            var appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
             appContext.Settings = new AppSettings(PageTitle, parameter);
             appContext.SaveSettings(appContext.Settings);
             InitializeSelectedItem();

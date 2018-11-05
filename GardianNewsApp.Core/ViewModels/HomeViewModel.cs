@@ -9,7 +9,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Threading.Tasks;
 
 namespace GardianNewsApp.Core.ViewModels
 {
@@ -29,12 +29,16 @@ namespace GardianNewsApp.Core.ViewModels
         public  bool IsPaneOpen
         {
             get { return isPaneOpen; }
-            set { isPaneOpen = value; OnPropertyChanged(); }
+            set
+            {
+                isPaneOpen = value;
+                OnPropertyChanged();
+            }
         }
         public StoryHeader Selected
         {
-            get { return Mvx.IoCProvider.GetSingleton<GardianAppContext>().Selected; }
-            set { Mvx.IoCProvider.GetSingleton<GardianAppContext>().Selected = value; }
+            get { return appContext.Selected; }
+            set { appContext.Selected = value; }
         }
         private ObservableCollection<StoryHeader> newsCollection;
         public ObservableCollection<StoryHeader> NewsCollection
@@ -59,28 +63,35 @@ namespace GardianNewsApp.Core.ViewModels
             set { progressRingVisibility = value; OnPropertyChanged(); }
         }
 
-        public HomeViewModel(IMvxNavigationService navigationService)
+        public HomeViewModel(IMvxNavigationService navigationService,
+                             GardianAppContext appContext, 
+                             NavCommand navCommand,
+                             ShareCommand shareCommand)
         {
 
-            appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
+            this.appContext = appContext;
             appContext.Settings = new AppSettings("All News", string.Empty);
             appContext.SaveSettings(appContext.Settings);
 
             //Command
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
-            NavCommand = new NavCommand(navigationService);
-            ShareCommand = new ShareCommand();
+            NavCommand = navCommand;
+            ShareCommand = shareCommand;
 
             PageTitle = "All News";
             IsPaneOpen = true;
             NewsCollection = new ObservableCollection<StoryHeader>();
-            SetNewsCollectionAsync();
-
-            appContext.CreateSecondaryTileAsync();
-
+            
             ProgressRingIsActive = true;
             ProgressRingVisibility = true;
+            Initialize();
+        }
+        public override async Task Initialize()
+        {
+           SetNewsCollectionAsync();
+           appContext.CreateSecondaryTileAsync();
+           await base.Initialize();
         }
         private void NavPanelTrigger()
         {

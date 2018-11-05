@@ -38,7 +38,7 @@ namespace GardianNewsApp.UWP.Settings
                 if (data!=null)
                 {
                 }
-                //ShowDialogAsync();
+                
                 return data;
             }
             catch (Exception ex)

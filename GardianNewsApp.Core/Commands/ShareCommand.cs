@@ -11,6 +11,11 @@ namespace GardianNewsApp.Core.Commands
     public class ShareCommand : IMvxCommand
     {
         public event EventHandler CanExecuteChanged;
+        private IShare _shareProvider;
+        public ShareCommand(IShare shareProvider)
+        {
+            _shareProvider = shareProvider;
+        }
 
         public bool CanExecute()
         {
@@ -32,9 +37,7 @@ namespace GardianNewsApp.Core.Commands
         {
             ShareObject article = (ShareObject)parameter;
 
-            var shareProvider = Mvx.IoCProvider.GetSingleton<IShare>();
-
-            shareProvider.Share(article.Title,article.Url);
+            _shareProvider.Share(article.Title,article.Url);
         }
 
         public void RaiseCanExecuteChanged()

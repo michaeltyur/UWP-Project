@@ -38,7 +38,7 @@ namespace GardianNewsApp.Core.Commands
         public void Execute(object parameter)
         {
             string idItem = (string)parameter;
-            //Mvx.IoCProvider.GetSingleton<GardianAppContext>().Selected = item;
+
             _navigationService.Navigate<DetailsViewModel,string>(idItem);
         }
 

@@ -18,15 +18,11 @@ namespace GardianNewsApp.UWP.Tiles
 
         private async Task CreateSecondaryTileAsync(string category, string content)
         {
-            // var tiles = await SecondaryTile.FindAllAsync();
-            // Construct a unique tile ID, which you will need to use later for updating the tile
+
             string tileId = _secondTileId;
-            // Use a display name you like
+
             string displayName = content;
 
-
-            // Provide all the required info in arguments so that when user
-            // clicks your tile, you can navigate them to the correct content
             string arguments = "arguments";
 
             // Initialize the tile with required arguments
@@ -36,6 +32,7 @@ namespace GardianNewsApp.UWP.Tiles
                 arguments,
                 new Uri("ms-appx:///Assets/SecondTile/Square150x150Logo.png"),
                 TileSize.Wide310x150);
+
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/SecondTile/Square150x150Logo.png");
             tile.VisualElements.ForegroundText = ForegroundText.Dark;
 
@@ -163,16 +160,7 @@ namespace GardianNewsApp.UWP.Tiles
 
             // And send the notification to the primary tile
             TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotif);
-
-            // If the secondary tile is pinned
-        //    if (SecondaryTile.Exists(_secondTileId))
-        //    {
-        //        // Get its updater
-        //        var updater = TileUpdateManager.CreateTileUpdaterForSecondaryTile(_secondTileId);
-
-        //        // And send the notification
-        //        updater.Update(tileNotif);
-        //    }
+            
         }
     }
 }

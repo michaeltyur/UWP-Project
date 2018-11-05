@@ -57,43 +57,43 @@ namespace GardianNewsApp.Core.ViewModels
 
         private GardianAppContext appContext;
 
-        public SectionViewModel(IMvxNavigationService navigationService)
+        public SectionViewModel(IMvxNavigationService navigationService, 
+                                GardianAppContext appContext,
+                                NavCommand navCommand, 
+                                ShareCommand shareCommand)
         {
-            appContext = Mvx.IoCProvider.GetSingleton<GardianAppContext>();
+            this.appContext = appContext;
             //Command
             GoToNewsDetailsCommand = new GoToNewsDetailsCommand(navigationService);
             NavMenuTriggerCommand = new MvxCommand(NavPanelTrigger);
-            NavCommand = new NavCommand(navigationService);
-            ShareCommand = new ShareCommand();
+            NavCommand = navCommand;
+            ShareCommand = shareCommand;
 
-            PageTitle = Mvx.IoCProvider.GetSingleton<GardianAppContext>().Settings.PageSettings;
+            PageTitle = appContext.Settings.PageSettings;
             ProgressRingIsActive = true;
-            ProgressRingVisibility = true;
-            InitializeSectionNewsCollection();
-            
-            //Save settings
+            ProgressRingVisibility = true;            
 
         }
+
         private void NavPanelTrigger()
         {
             IsPaneOpen = !IsPaneOpen;
         }
-        public override void Prepare(string parameter)
-        {
-        }
+
+        public override void Prepare(string parameter) { }
 
         public override async Task Initialize()
         {
-
+            InitializeSectionNewsCollection();
+            SaveSaveSettings(appContext.Settings);
             await base.Initialize();
-
         }
         private async void InitializeSectionNewsCollection()
         {
             var _parameter = PageTitle;
             _parameter = _parameter.ToLower().Replace(" ", "");
 
-            var result=await Mvx.IoCProvider.GetSingleton<GardianAppContext>().GetSectionAsync(_parameter);
+            var result=await appContext.GetSectionAsync(_parameter);
 
             if (result == null) return;
 

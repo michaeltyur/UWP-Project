@@ -30,9 +30,9 @@ namespace GardianNewsApp.Core.Models
 
         public StoryHeader Selected { get; set; }
 
-        public GardianAppContext()
+        public GardianAppContext(HttpService httpService)
         {
-            _httpService = new HttpService();
+            _httpService = httpService;
             _parametrs = new Dictionary<string, string>();
 
             NewsCollection = new ObservableCollection<StoryHeader>();

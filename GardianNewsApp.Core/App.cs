@@ -1,4 +1,5 @@
-﻿using GardianNewsApp.Core.Interfaces;
+﻿using GardianNewsApp.Core.Commands;
+using GardianNewsApp.Core.Interfaces;
 using GardianNewsApp.Core.Models;
 using GardianNewsApp.Core.ViewModels;
 using MvvmCross;
@@ -19,11 +20,12 @@ namespace GardianNewsApp.Core
 
             CreatableTypes()
                 .EndingWith("Service")
-                .AsInterfaces()
+                .AsTypes()
                 .RegisterAsLazySingleton();
 
             Mvx.IoCProvider.LazyConstructAndRegisterSingleton<GardianAppContext, GardianAppContext>();
-
+            Mvx.IoCProvider.LazyConstructAndRegisterSingleton<NavCommand, NavCommand>(); 
+                Mvx.IoCProvider.LazyConstructAndRegisterSingleton<ShareCommand, ShareCommand>();
             var settings = Mvx.IoCProvider.GetSingleton<ISettings>().LoadSettings().Result;
 
             if (settings!=null)

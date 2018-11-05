@@ -13,10 +13,12 @@ namespace GardianNewsApp.Core.Commands
     {
         public event EventHandler CanExecuteChanged;
         private IMvxNavigationService _navigationService;
+        private GardianAppContext _appContext;
 
-        public NavCommand(IMvxNavigationService navigationService)
+        public NavCommand(IMvxNavigationService navigationService, GardianAppContext appContext)
         {
             _navigationService = navigationService;
+            _appContext = appContext;
         }
         public bool CanExecute()
         {
@@ -44,7 +46,7 @@ namespace GardianNewsApp.Core.Commands
                     break;
                 default:
                     {
-                        Mvx.IoCProvider.GetSingleton<GardianAppContext>().Settings = new AppSettings(section, "");
+                        _appContext.Settings = new AppSettings(section, "");
                         _navigationService.Navigate<SectionViewModel, string>(section);
                     }
                     break;

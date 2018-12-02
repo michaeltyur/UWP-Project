@@ -1,4 +1,5 @@
-# Universal Windows Platform Project(UWP Project) 
+# Universal Windows Platform application (UWP application) 
+Universal Windows Platform based project with Guardian API 
 ***
 ![alt text](https://github.com/michaeltyur/UWP-Project/blob/master/mainpage.PNG)
 ***
